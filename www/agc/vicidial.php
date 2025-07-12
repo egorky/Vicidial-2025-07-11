@@ -1205,6 +1205,8 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" type="text/css" href="css/tailwind_styles.css">
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/custom.css" />
 <script language="JavaScript" src="calendar_db.js"></script>
@@ -1519,52 +1521,71 @@ if ($relogin == 'YES')
 		echo "<input type=\"hidden\" name=\"phone_login\" id=\"phone_login\" value=\"$phone_login\" />\n";
 		echo "<input type=\"hidden\" name=\"phone_pass\" id=\"phone_pass\" value=\"$phone_pass\" />\n";
 		}
-	echo "<br /><br /><br /><center><table width=\"460px\" cellpadding=\"3\" cellspacing=\"0\" bgcolor=\"#$SSframe_background\"><tr bgcolor=\"white\">";
-	echo "<td align=\"left\" valign=\"bottom\" bgcolor=\"#$SSmenu_background\" width=\"170\"><img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" /></td>";
-	echo "<td align=\"center\" valign=\"middle\" bgcolor=\"#$SSmenu_background\"> <font class=\"sh_text_white\">"._QXZ("Re-Login")."</font> </td>";
-	echo "</tr>\n";
-	echo "<tr><td align=\"left\" colspan=\"2\"><font size=\"1\"> &nbsp; </font></td></tr>\n";
+	echo "<div class=\"flex items-center justify-center h-screen bg-gray-100\">\n";
+	echo "    <div class=\"w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md\">\n";
+	echo "        <div class=\"flex justify-center\">\n";
+	echo "            <img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" />\n";
+	echo "        </div>\n";
+	echo "        <h2 class=\"text-2xl font-bold text-center text-gray-700\">"._QXZ("Re-Login")."</h2>\n";
+
 	if (preg_match("/^READONLY_PHONE$/",$hide_relogin_fields))
 		{
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("Phone Login:")."</font> </td>";
-		echo "<td align=\"left\"><b>$phone_login</b></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Login").":</font>  </td>";
-		echo "<td align=\"left\"><input type=\"text\" name=\"VD_login\" size=\"20\" maxlength=\"20\" value=\"$VD_login\" /></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Password:")."</font>  </td>";
-		echo "<td align=\"left\"><input type=\"password\" name=\"VD_pass\" size=\"20\" maxlength=\"100\" value=\"$VD_pass\" /></td></tr>\n";
+		echo "<p class=\"text-center text-gray-600\">"._QXZ("Phone Login:")." <b>$phone_login</b></p>\n";
+		echo "<div>\n";
+		echo "    <label for=\"VD_login\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Login")."</label>\n";
+		echo "    <input id=\"VD_login\" name=\"VD_login\" type=\"text\" value=\"$VD_login\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "</div>\n";
+		echo "<div>\n";
+		echo "    <label for=\"VD_pass\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Password")."</label>\n";
+		echo "    <input id=\"VD_pass\" name=\"VD_pass\" type=\"password\" value=\"$VD_pass\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "</div>\n";
 		}
-	if (preg_match("/^READONLY_LOGIN$/",$hide_relogin_fields))
+	else if (preg_match("/^READONLY_LOGIN$/",$hide_relogin_fields))
 		{
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Login").":</font>  </td>";
-		echo "<td align=\"left\"><b>$VD_login</b></td></tr>\n";
+		echo "<p class=\"text-center text-gray-600\">"._QXZ("User Login").": <b>$VD_login</b></p>\n";
 		}
-	if (preg_match("/^READONLY_LOGINPHONE$/",$hide_relogin_fields))
+	else if (preg_match("/^READONLY_LOGINPHONE$/",$hide_relogin_fields))
 		{
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Login").":</font>  </td>";
-		echo "<td align=\"left\"><b>$VD_login</b></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("Phone Login:")."</font> </td>";
-		echo "<td align=\"left\"><b>$phone_login</b></td></tr>\n";
+		echo "<p class=\"text-center text-gray-600\">"._QXZ("User Login").": <b>$VD_login</b></p>\n";
+		echo "<p class=\"text-center text-gray-600\">"._QXZ("Phone Login:")." <b>$phone_login</b></p>\n";
 		}
-	if (!preg_match("/^YES$|^READONLY_LOGIN$|^READONLY_PHONE$|^READONLY_LOGINPHONE$/",$hide_relogin_fields))
-		{
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("Phone Login:")."</font> </td>";
-		echo "<td align=\"left\"><input type=\"text\" name=\"phone_login\" size=\"20\" maxlength=\"20\" value=\"$phone_login\" /></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("Phone Password:")."</font>  </td>";
-		echo "<td align=\"left\"><input type=\"password\" name=\"phone_pass\" size=\"20\" maxlength=\"100\" value=\"$phone_pass\" /></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Login").":</font>  </td>";
-		echo "<td align=\"left\"><input type=\"text\" name=\"VD_login\" size=\"20\" maxlength=\"20\" value=\"$VD_login\" /></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Password:")."</font>  </td>";
-		echo "<td align=\"left\"><input type=\"password\" name=\"VD_pass\" size=\"20\" maxlength=\"100\" value=\"$VD_pass\" /></td></tr>\n";
-		}
-	echo "<tr><td align=\"right\" valign=\"top\"><font class=\"skb_text\">"._QXZ("Campaign:")."</font>  </td>";
-	echo "<td align=\"left\"><font class=\"skb_text\"><span id=\"LogiNCamPaigns\">$camp_form_code</span></font></td></tr>\n";
-	if ($login_submit_once > 0)
-		{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" id=\"login_sub\" name=\"login_sub\" value=\""._QXZ("SUBMIT")."\" onclick=\"login_click()\"> &nbsp; \n";}
 	else
-		{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" name=\"SUBMIT\" value=\""._QXZ("SUBMIT")."\" /> &nbsp; \n";}
-	echo "<span id=\"LogiNReseT\"><input type=\"button\" value=\""._QXZ("Refresh Campaign List")."\" onclick=\"login_allowable_campaigns()\"></span></td></tr>\n";
-	echo "<tr><td align=\"left\" colspan=\"2\"><font class=\"body_tiny\"><br />"._QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build</font></td></tr>\n";
-	echo "</table>\n";
+		{
+		echo "<div>\n";
+		echo "    <label for=\"phone_login\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Phone Login:")."</label>\n";
+		echo "    <input id=\"phone_login\" name=\"phone_login\" type=\"text\" value=\"$phone_login\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "</div>\n";
+		echo "<div>\n";
+		echo "    <label for=\"phone_pass\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Phone Password:")."</label>\n";
+		echo "    <input id=\"phone_pass\" name=\"phone_pass\" type=\"password\" value=\"$phone_pass\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "</div>\n";
+		echo "<div>\n";
+		echo "    <label for=\"VD_login\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Login")."</label>\n";
+		echo "    <input id=\"VD_login\" name=\"VD_login\" type=\"text\" value=\"$VD_login\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "</div>\n";
+		echo "<div>\n";
+		echo "    <label for=\"VD_pass\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Password")."</label>\n";
+		echo "    <input id=\"VD_pass\" name=\"VD_pass\" type=\"password\" value=\"$VD_pass\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "</div>\n";
+		}
+	echo "<div>\n";
+	echo "    <label for=\"VD_campaign\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Campaign:")."</label>\n";
+	echo "    <span id=\"LogiNCamPaigns\">$camp_form_code</span>\n";
+	echo "</div>\n";
+	echo "<div>\n";
+	if ($login_submit_once > 0)
+		{ echo "<button type=\"submit\" id=\"login_sub\" name=\"login_sub\" onclick=\"login_click()\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
+	else
+		{ echo "<button type=\"submit\" name=\"SUBMIT\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
+	echo "</div>\n";
+	echo "<div class=\"text-center\">\n";
+	echo "    <span id=\"LogiNReseT\"><button type=\"button\" onclick=\"login_allowable_campaigns()\" class=\"px-4 py-2 text-sm font-medium text-indigo-600 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("Refresh Campaign List")."</button></span>\n";
+	echo "</div>\n";
+	echo "<div class=\"text-xs text-center text-gray-500\">\n";
+	echo _QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build\n";
+	echo "</div>\n";
+	echo "</div>\n";
+	echo "</div>\n";
 	echo "</form>\n\n";
 	echo "\n\n";
 	echo "$LoginLoadingBox";
@@ -1599,25 +1620,39 @@ if ($user_login_first == 1)
 		echo "<input type=\"hidden\" name=\"LOGINvarFOUR\" id=\"LOGINvarFOUR\" value=\"$LOGINvarFOUR\" />\n";
 		echo "<input type=\"hidden\" name=\"LOGINvarFIVE\" id=\"LOGINvarFIVE\" value=\"$LOGINvarFIVE\" />\n";
 		echo "<input type=\"hidden\" name=\"hide_relogin_fields\" id=\"hide_relogin_fields\" value=\"$hide_relogin_fields\" />\n";
-		echo "<center><br /><b>"._QXZ("User Login")."</b><br /><br />";
-		echo "<table width=\"460px\" cellpadding=\"3\" cellspacing=\"0\" bgcolor=\"#$SSframe_background\"><tr bgcolor=\"white\">";
-		echo "<td align=\"left\" valign=\"bottom\" bgcolor=\"#$SSmenu_background\" width=\"170\"><img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" /></td>";
-		echo "<td align=\"center\" valign=\"middle\" bgcolor=\"#$SSmenu_background\"> <font class=\"sh_text_white\">"._QXZ("Campaign Login")."</font> </td>";
-		echo "</tr>\n";
-		echo "<tr><td align=\"left\" colspan=\"2\"><font size=\"1\"> &nbsp; </font></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Login").":</font>  </td>";
-		echo "<td align=\"left\"><input type=\"text\" name=\"VD_login\" size=\"20\" maxlength=\"20\" value=\"$VD_login\" /></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Password:")."</font>  </td>";
-		echo "<td align=\"left\"><input type=\"password\" name=\"VD_pass\" size=\"20\" maxlength=\"100\" value=\"$VD_pass\" /></td></tr>\n";
-		echo "<tr><td align=\"right\" valign=\"top\"><font class=\"skb_text\">"._QXZ("Campaign:")."</font>  </td>";
-		echo "<td align=\"left\"><font class=\"skb_text\"><span id=\"LogiNCamPaigns\">$camp_form_code</span></font></td></tr>\n";
+		echo "<div class=\"flex items-center justify-center h-screen bg-gray-100\">\n";
+		echo "    <div class=\"w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md\">\n";
+		echo "        <div class=\"flex justify-center\">\n";
+		echo "            <img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" />\n";
+		echo "        </div>\n";
+		echo "        <h2 class=\"text-2xl font-bold text-center text-gray-700\">"._QXZ("User Login")."</h2>\n";
+		echo "        <p class=\"text-center text-gray-600\">"._QXZ("Campaign Login")."</p>\n";
+		echo "        <div>\n";
+		echo "            <label for=\"VD_login\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Login").":</label>\n";
+		echo "            <input id=\"VD_login\" name=\"VD_login\" type=\"text\" value=\"$VD_login\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "        </div>\n";
+		echo "        <div>\n";
+		echo "            <label for=\"VD_pass\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Password").":</label>\n";
+		echo "            <input id=\"VD_pass\" name=\"VD_pass\" type=\"password\" value=\"$VD_pass\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "        </div>\n";
+		echo "        <div>\n";
+		echo "            <label for=\"VD_campaign\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Campaign:")."</label>\n";
+		echo "            <span id=\"LogiNCamPaigns\">$camp_form_code</span>\n";
+		echo "        </div>\n";
+		echo "        <div>\n";
 		if ($login_submit_once > 0)
-			{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" id=\"login_sub\" name=\"login_sub\" value=\""._QXZ("SUBMIT")."\" onclick=\"login_click()\"> &nbsp; \n";}
+			{ echo "            <button type=\"submit\" id=\"login_sub\" name=\"login_sub\" onclick=\"login_click()\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
 		else
-			{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" name=\"SUBMIT\" value=\""._QXZ("SUBMIT")."\" /> &nbsp; \n";}
-		echo "<span id=\"LogiNReseT\"></span></td></tr>\n";
-		echo "<tr><td align=\"left\" colspan=\"2\"><font class=\"body_tiny\"><br />"._QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build</font></td></tr>\n";
-		echo "</table>\n";
+			{ echo "            <button type=\"submit\" name=\"SUBMIT\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
+		echo "        </div>\n";
+		echo "        <div class=\"text-center\">\n";
+		echo "            <span id=\"LogiNReseT\"></span>\n";
+		echo "        </div>\n";
+		echo "        <div class=\"text-xs text-center text-gray-500\">\n";
+		echo _QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build\n";
+		echo "        </div>\n";
+		echo "    </div>\n";
+		echo "</div>\n";
 		echo "</form>\n\n";
 		echo "\n\n";
 		echo "$LoginLoadingBox";
@@ -1659,28 +1694,46 @@ if ($user_login_first == 1)
 				echo "<input type=\"hidden\" name=\"LOGINvarFOUR\" id=\"LOGINvarFOUR\" value=\"$LOGINvarFOUR\" />\n";
 				echo "<input type=\"hidden\" name=\"LOGINvarFIVE\" id=\"LOGINvarFIVE\" value=\"$LOGINvarFIVE\" />\n";
 				echo "<input type=\"hidden\" name=\"hide_relogin_fields\" id=\"hide_relogin_fields\" value=\"$hide_relogin_fields\" />\n";
-				echo "<br /><br /><br /><center><table width=\"460px\" cellpadding=\"3\" cellspacing=\"0\"  bgcolor=\"#$SSframe_background\"><tr bgcolor=\"white\">";
-				echo "<td align=\"left\" valign=\"bottom\" bgcolor=\"#$SSmenu_background\" width=\"170\"><img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" /></td>";
-				echo "<td align=\"center\" valign=\"middle\" bgcolor=\"#$SSmenu_background\"> <font class=\"sh_text_white\">"._QXZ("Login")."</font> </td>";
-				echo "</tr>\n";
-				echo "<tr><td align=\"left\" colspan=\"2\"><font size=\"1\"> &nbsp; </font></td></tr>\n";
-				echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("Phone Login:")."</font> </td>";
-				echo "<td align=\"left\"><input type=\"text\" name=\"phone_login\" size=\"20\" maxlength=\"20\" value=\"$phone_login\" /></td></tr>\n";
-				echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("Phone Password:")."</font>  </td>";
-				echo "<td align=\"left\"><input type=\"password\" name=\"phone_pass\" size=\"20\" maxlength=\"100\" value=\"$phone_pass\" /></td></tr>\n";
-				echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Login").":</font>  </td>";
-				echo "<td align=\"left\"><input type=\"text\" name=\"VD_login\" size=\"20\" maxlength=\"20\" value=\"$VD_login\" /></td></tr>\n";
-				echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Password:")."</font>  </td>";
-				echo "<td align=\"left\"><input type=\"password\" name=\"VD_pass\" size=\"20\" maxlength=\"100\" value=\"$VD_pass\" /></td></tr>\n";
-				echo "<tr><td align=\"right\" valign=\"top\"><font class=\"skb_text\">"._QXZ("Campaign:")."</font>  </td>";
-				echo "<td align=\"left\"><font class=\"skb_text\"><span id=\"LogiNCamPaigns\">$camp_form_code</span></font></td></tr>\n";
+				echo "<div class=\"flex items-center justify-center h-screen bg-gray-100\">\n";
+				echo "    <div class=\"w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md\">\n";
+				echo "        <div class=\"flex justify-center\">\n";
+				echo "            <img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" />\n";
+				echo "        </div>\n";
+				echo "        <h2 class=\"text-2xl font-bold text-center text-gray-700\">"._QXZ("Login")."</h2>\n";
+				echo "        <div>\n";
+				echo "            <label for=\"phone_login\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Phone Login:")."</label>\n";
+				echo "            <input id=\"phone_login\" name=\"phone_login\" type=\"text\" value=\"$phone_login\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+				echo "        </div>\n";
+				echo "        <div>\n";
+				echo "            <label for=\"phone_pass\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Phone Password:")."</label>\n";
+				echo "            <input id=\"phone_pass\" name=\"phone_pass\" type=\"password\" value=\"$phone_pass\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+				echo "        </div>\n";
+				echo "        <div>\n";
+				echo "            <label for=\"VD_login\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Login").":</label>\n";
+				echo "            <input id=\"VD_login\" name=\"VD_login\" type=\"text\" value=\"$VD_login\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+				echo "        </div>\n";
+				echo "        <div>\n";
+				echo "            <label for=\"VD_pass\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Password").":</label>\n";
+				echo "            <input id=\"VD_pass\" name=\"VD_pass\" type=\"password\" value=\"$VD_pass\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+				echo "        </div>\n";
+				echo "        <div>\n";
+				echo "            <label for=\"VD_campaign\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Campaign:")."</label>\n";
+				echo "            <span id=\"LogiNCamPaigns\">$camp_form_code</span>\n";
+				echo "        </div>\n";
+				echo "        <div>\n";
 				if ($login_submit_once > 0)
-					{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" id=\"login_sub\" name=\"login_sub\" value=\""._QXZ("SUBMIT")."\" onclick=\"login_click()\"> &nbsp; \n";}
+					{ echo "            <button type=\"submit\" id=\"login_sub\" name=\"login_sub\" onclick=\"login_click()\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
 				else
-					{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" name=\"SUBMIT\" value=\""._QXZ("SUBMIT")."\" /> &nbsp; \n";}
-                echo "<span id=\"LogiNReseT\"></span></td></tr>\n";
-                echo "<tr><td align=\"left\" colspan=\"2\"><font class=\"body_tiny\"><br />"._QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build</font></td></tr>\n";
-				echo "</table>\n";
+					{ echo "            <button type=\"submit\" name=\"SUBMIT\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
+				echo "        </div>\n";
+				echo "        <div class=\"text-center\">\n";
+				echo "            <span id=\"LogiNReseT\"></span>\n";
+				echo "        </div>\n";
+				echo "        <div class=\"text-xs text-center text-gray-500\">\n";
+				echo _QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build\n";
+				echo "        </div>\n";
+				echo "    </div>\n";
+				echo "</div>\n";
 				echo "</form>\n\n";
 				echo "\n\n";
 				echo "$LoginLoadingBox";
@@ -1714,22 +1767,34 @@ if ( (strlen($phone_login)<2) or (strlen($phone_pass)<2) )
 	echo "<input type=\"hidden\" name=\"LOGINvarFOUR\" id=\"LOGINvarFOUR\" value=\"$LOGINvarFOUR\" />\n";
 	echo "<input type=\"hidden\" name=\"LOGINvarFIVE\" id=\"LOGINvarFIVE\" value=\"$LOGINvarFIVE\" />\n";
 	echo "<input type=\"hidden\" name=\"hide_relogin_fields\" id=\"hide_relogin_fields\" value=\"$hide_relogin_fields\" />\n";
-	echo "<br /><br /><br /><center><table width=\"460px\" cellpadding=\"3\" cellspacing=\"0\" bgcolor=\"#$SSframe_background\"><tr bgcolor=\"white\">";
-	echo "<td align=\"left\" valign=\"bottom\" bgcolor=\"#$SSmenu_background\" width=\"170\"><img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" /></td>";
-	echo "<td align=\"center\" valign=\"middle\" bgcolor=\"#$SSmenu_background\"> <font class=\"sh_text_white\">"._QXZ("phone login")."</font> </td>";
-	echo "</tr>\n";
-	echo "<tr><td align=\"left\" colspan=\"2\"><font size=\"1\"> &nbsp; </font></td></tr>\n";
-	echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("Phone Login:")."</font> </td>";
-	echo "<td align=\"left\"><input type=\"text\" name=\"phone_login\" size=\"10\" maxlength=\"20\" value=\"\" /></td></tr>\n";
-	echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("Phone Password:")."</font>  </td>";
-	echo "<td align=\"left\"><input type=\"password\" name=\"phone_pass\" size=\"10\" maxlength=\"100\" value=\"\" /></td></tr>\n";
+	echo "<div class=\"flex items-center justify-center h-screen bg-gray-100\">\n";
+	echo "    <div class=\"w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md\">\n";
+	echo "        <div class=\"flex justify-center\">\n";
+	echo "            <img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" />\n";
+	echo "        </div>\n";
+	echo "        <h2 class=\"text-2xl font-bold text-center text-gray-700\">"._QXZ("Phone Login")."</h2>\n";
+	echo "        <div>\n";
+	echo "            <label for=\"phone_login\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Phone Login:")."</label>\n";
+	echo "            <input id=\"phone_login\" name=\"phone_login\" type=\"text\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+	echo "        </div>\n";
+	echo "        <div>\n";
+	echo "            <label for=\"phone_pass\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Phone Password:")."</label>\n";
+	echo "            <input id=\"phone_pass\" name=\"phone_pass\" type=\"password\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+	echo "        </div>\n";
+	echo "        <div>\n";
 	if ($login_submit_once > 0)
-		{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" id=\"login_sub\" name=\"login_sub\" value=\""._QXZ("SUBMIT")."\" onclick=\"login_click()\"> &nbsp; \n";}
+		{ echo "            <button type=\"submit\" id=\"login_sub\" name=\"login_sub\" onclick=\"login_click()\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
 	else
-		{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" name=\"SUBMIT\" value=\""._QXZ("SUBMIT")."\" /> &nbsp; \n";}
-	echo "<span id=\"LogiNReseT\"></span></td></tr>\n";
-	echo "<tr><td align=\"left\" colspan=\"2\"><font class=\"body_tiny\"><br />"._QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build</font></td></tr>\n";
-	echo "</table>\n";
+		{ echo "            <button type=\"submit\" name=\"SUBMIT\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
+	echo "        </div>\n";
+	echo "        <div class=\"text-center\">\n";
+	echo "            <span id=\"LogiNReseT\"></span>\n";
+	echo "        </div>\n";
+	echo "        <div class=\"text-xs text-center text-gray-500\">\n";
+	echo _QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build\n";
+	echo "        </div>\n";
+	echo "    </div>\n";
+	echo "</div>\n";
 	echo "</form>\n\n";
 	echo "\n\n";
 	echo "$LoginLoadingBox";
@@ -4226,25 +4291,39 @@ else
 		echo "<input type=\"hidden\" name=\"LOGINvarFOUR\" id=\"LOGINvarFOUR\" value=\"$LOGINvarFOUR\" />\n";
 		echo "<input type=\"hidden\" name=\"LOGINvarFIVE\" id=\"LOGINvarFIVE\" value=\"$LOGINvarFIVE\" />\n";
 		echo "<input type=\"hidden\" name=\"hide_relogin_fields\" id=\"hide_relogin_fields\" value=\"$hide_relogin_fields\" />\n";
-		echo "<center><br /><b>$VDdisplayMESSAGE</b><br /><br />";
-		echo "<table width=\"460px\" cellpadding=\"3\" cellspacing=\"0\" bgcolor=\"#$SSframe_background\"><tr bgcolor=\"white\">";
-		echo "<td align=\"left\" valign=\"bottom\" bgcolor=\"#$SSmenu_background\" width=\"170\"><img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" /></td>";
-		echo "<td align=\"center\" valign=\"middle\" bgcolor=\"#$SSmenu_background\"> <font class=\"sh_text_white\">"._QXZ("Campaign Login")."</font> </td>";
-		echo "</tr>\n";
-		echo "<tr><td align=\"left\" colspan=\"2\"><font size=\"1\"> &nbsp; </font></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Login").":</font>  </td>";
-		echo "<td align=\"left\"><input type=\"text\" name=\"VD_login\" size=\"20\" maxlength=\"20\" value=\"$VD_login\" /></td></tr>\n";
-		echo "<tr><td align=\"right\"><font class=\"skb_text\">"._QXZ("User Password:")."</font>  </td>";
-		echo "<td align=\"left\"><input type=\"password\" name=\"VD_pass\" size=\"20\" maxlength=\"100\" value=\"$VD_pass\" /></td></tr>\n";
-		echo "<tr><td align=\"right\" valign=\"top\"><font class=\"skb_text\">"._QXZ("Campaign:")."</font>  </td>";
-		echo "<td align=\"left\"><font class=\"skb_text\"><span id=\"LogiNCamPaigns\">$camp_form_code</span></font></td></tr>\n";
+		echo "<div class=\"flex items-center justify-center h-screen bg-gray-100\">\n";
+		echo "    <div class=\"w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md\">\n";
+		echo "        <div class=\"flex justify-center\">\n";
+		echo "            <img src=\"$selected_logo\" border=\"0\" height=\"45\" width=\"170\" alt=\"Agent Screen\" />\n";
+		echo "        </div>\n";
+		echo "        <h2 class=\"text-2xl font-bold text-center text-gray-700\">"._QXZ("Campaign Login")."</h2>\n";
+		echo "        <div class=\"p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg\" role=\"alert\">$VDdisplayMESSAGE</div>\n";
+		echo "        <div>\n";
+		echo "            <label for=\"VD_login\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Login").":</label>\n";
+		echo "            <input id=\"VD_login\" name=\"VD_login\" type=\"text\" value=\"$VD_login\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "        </div>\n";
+		echo "        <div>\n";
+		echo "            <label for=\"VD_pass\" class=\"text-sm font-medium text-gray-700\">"._QXZ("User Password").":</label>\n";
+		echo "            <input id=\"VD_pass\" name=\"VD_pass\" type=\"password\" value=\"$VD_pass\" required class=\"w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500\">\n";
+		echo "        </div>\n";
+		echo "        <div>\n";
+		echo "            <label for=\"VD_campaign\" class=\"text-sm font-medium text-gray-700\">"._QXZ("Campaign:")."</label>\n";
+		echo "            <span id=\"LogiNCamPaigns\">$camp_form_code</span>\n";
+		echo "        </div>\n";
+		echo "        <div>\n";
 		if ($login_submit_once > 0)
-			{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" id=\"login_sub\" name=\"login_sub\" value=\""._QXZ("SUBMIT")."\" onclick=\"login_click()\"> &nbsp; \n";}
+			{ echo "            <button type=\"submit\" id=\"login_sub\" name=\"login_sub\" onclick=\"login_click()\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
 		else
-			{echo "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" name=\"SUBMIT\" value=\""._QXZ("SUBMIT")."\" /> &nbsp; \n";}
-		echo "<span id=\"LogiNReseT\"></span></td></tr>\n";
-		echo "<tr><td align=\"left\" colspan=\"2\"><font class=\"body_tiny\"><br />"._QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build</font></td></tr>\n";
-		echo "</table>\n";
+			{ echo "            <button type=\"submit\" name=\"SUBMIT\" class=\"w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500\">"._QXZ("SUBMIT")."</button>\n"; }
+		echo "        </div>\n";
+		echo "        <div class=\"text-center\">\n";
+		echo "            <span id=\"LogiNReseT\"></span>\n";
+		echo "        </div>\n";
+		echo "        <div class=\"text-xs text-center text-gray-500\">\n";
+		echo _QXZ("VERSION:")." $version &nbsp; &nbsp; &nbsp; "._QXZ("BUILD:")." $build\n";
+		echo "        </div>\n";
+		echo "    </div>\n";
+		echo "</div>\n";
 		echo "</form>\n\n";
 		echo "\n\n";
 		echo "$LoginLoadingBox";
@@ -23294,69 +23373,66 @@ $zi=2;
 
 <!-- ZZZZZZZZZZZZ  header -->
 
-<span style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="Header">
-    <table border="0" cellpadding="0" cellspacing="0" bgcolor="white" width="<?php echo $MNwidth ?>px" marginwidth="0" marginheight="0" leftmargin="0" topmargin="0" valign="top" align="left">
-    <tr valign="top" align="left"><td colspan="3" valign="top" align="left">
-    <input type="hidden" name="extension" id="extension" />
-    <input type="hidden" name="custom_field_values" id="custom_field_values" value="" />
-    <input type="hidden" name="FORM_LOADED" id="FORM_LOADED" value="0" />
-	<font class="queue_text">
-	<?php
-	if ($logged_in_refresh_link > 0)
-		{echo "<a href=\"#\" onclick=\"start_all_refresh();\"><font class=\"queue_text\">"._QXZ("Logged in as User")."</font></a>";}
-	else
-		{echo "<font class=\"queue_text\">"._QXZ("Logged in as User")."</font>";}
-	echo _QXZ(": %1s on Phone: %2s",0,'',$VD_login,$SIP_user); 
-	if ($on_hook_agent == 'Y')
-		{echo "(<a href=\"#\" onclick=\"NoneInSessionCalL();return false;\">"._QXZ("ring")."</a>)";}
-	echo "&nbsp; "._QXZ("to campaign").": $VD_campaign&nbsp; "; 
-	?> &nbsp; &nbsp; <span id="agentchannelSPAN"></span></font></td>
-    <td colspan="3" valign="top" align="right"><font class="body_text">
-	<?php if ($territoryCT > 0) {echo "<a href=\"#\" onclick=\"OpeNTerritorYSelectioN();return false;\">"._QXZ("TERRITORIES")."</a> &nbsp; &nbsp; \n";} ?>
-	<?php if ($INgrpCT > 0) {echo "<a href=\"#\" onclick=\"OpeNGrouPSelectioN();return false;\">"._QXZ("GROUPS")."</a> &nbsp; &nbsp; \n";} ?>
-	<?php	echo "<a href=\"#\" onclick=\"NormalLogout();return false;needToConfirmExit = false;\">"._QXZ("LOGOUT")."</a>\n"; ?>
-    </font></td></tr>
-    </table>
-</span>
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-2">
+            <div class="flex items-center">
+                <input type="hidden" name="extension" id="extension" />
+                <input type="hidden" name="custom_field_values" id="custom_field_values" value="" />
+                <input type="hidden" name="FORM_LOADED" id="FORM_LOADED" value="0" />
+                <div class="text-sm text-gray-600">
+                    <?php
+                    if ($logged_in_refresh_link > 0) {
+                        echo "<a href=\"#\" onclick=\"start_all_refresh();\" class=\"hover:underline\">"._QXZ("Logged in as User")."</a>";
+                    } else {
+                        echo _QXZ("Logged in as User");
+                    }
+                    echo _QXZ(": %1s on Phone: %2s",0,'',$VD_login,$SIP_user);
+                    if ($on_hook_agent == 'Y') {
+                        echo "(<a href=\"#\" onclick=\"NoneInSessionCalL();return false;\" class=\"text-blue-500 hover:underline\">"._QXZ("ring")."</a>)";
+                    }
+                    echo "&nbsp; "._QXZ("to campaign").": $VD_campaign&nbsp; ";
+                    ?>
+                    <span id="agentchannelSPAN"></span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <?php if ($territoryCT > 0) { echo "<a href=\"#\" onclick=\"OpeNTerritorYSelectioN();return false;\" class=\"text-sm text-gray-600 hover:underline\">"._QXZ("TERRITORIES")."</a>"; } ?>
+                <?php if ($INgrpCT > 0) { echo "<a href=\"#\" onclick=\"OpeNGrouPSelectioN();return false;\" class=\"text-sm text-gray-600 hover:underline\">"._QXZ("GROUPS")."</a>"; } ?>
+                <?php echo "<a href=\"#\" onclick=\"NormalLogout();return false;needToConfirmExit = false;\" class=\"text-sm text-red-500 hover:underline\">"._QXZ("LOGOUT")."</a>"; ?>
+            </div>
+        </div>
+        <div class="flex items-center justify-between border-t border-gray-200 py-2">
+            <div class="flex items-center space-x-1">
+                <a href="#" onclick="MainPanelToFront('NO','YES');"><img src="<?php echo $selected_logo ?>" alt="MAIN" width="115" height="30" class="border-0"></a>
+                <a href="#" onclick="ScriptPanelToFront('YES');"><img src="./images/<?php echo _QXZ("vdc_tab_script.gif"); ?>" alt="SCRIPT" width="67" height="30" class="border-0"></a>
+                <?php if ($SSenable_second_script > 0) { echo "<a href=\"#\" onclick=\"ScriptPanel2ToFront('YES');\"><img src=\"./images/"._QXZ("vdc_tab_script2.gif")."\" alt=\"SCRIPT 2\" width=\"67\" height=\"30\" class=\"border-0\"></a>"; } ?>
+                <?php if ($custom_fields_enabled > 0) { echo "<a href=\"#\" onclick=\"FormPanelToFront('YES');\"><img src=\"./images/"._QXZ("vdc_tab_form.gif")."\" alt=\"FORM\" width=\"67\" height=\"30\" class=\"border-0\"></a>"; } ?>
+                <?php if ($email_enabled > 0) { echo "<a href=\"#\" onclick=\"EmailPanelToFront('YES');\"><img src=\"./images/"._QXZ("vdc_tab_email.gif")."\" alt=\"EMAIL\" width=\"67\" height=\"30\" class=\"border-0\"></a>"; } ?>
+                <?php if ($chat_enabled > 0) {
+                    echo "<a href=\"#\" onclick=\"InternalChatContentsLoad('YES');\"><img src=\"./images/"._QXZ("vdc_tab_chat_internal.gif")."\" name='InternalChatImg' alt=\"CHAT\" width=\"67\" height=\"30\" class=\"border-0\"/></a>";
+                    if ($campaign_chat_enabled=='Y') {
+                        echo "<a href=\"#\" onclick=\"CustomerChatPanelToFront('1', 'YES');\"><img src=\"./images/"._QXZ("vdc_tab_chat_customer.gif")."\" name='CustomerChatImg' alt=\"CHAT\" width=\"67\" height=\"30\" class=\"border-0\"/></a>";
+                    }
+                } ?>
+            </div>
+            <div class="flex items-center space-x-4 text-xs text-gray-500">
+                <span>&nbsp; <span id="status"><?php echo _QXZ("LIVE"); ?></span>&nbsp; &nbsp; <?php echo _QXZ("session ID:"); ?> <span id="sessionIDspan"></span></span>
+                <span id="AgentStatusCalls"></span>
+                <span id="AgentStatusEmails"></span>
+            </div>
+            <div>
+                <img src="./images/<?php echo _QXZ("agc_live_call_OFF.gif"); ?>" name="livecall" alt="Live Call" width="109" height="30" class="border-0" />
+            </div>
+        </div>
+    </div>
+</header>
 
-<!-- ZZZZZZZZZZZZ  tabs -->
-<span style="position:absolute;left:0px;top:13px;z-index:<?php $zi++; echo $zi ?>;" id="Tabs">
-    <table border="0" bgcolor="#FFFFFF" width="<?php echo $MNwidth ?>px" height="30px">
-    <tr valign="top" align="left">
-    <td align="left" width="115px" bgcolor="#<?php echo $SSstd_row5_background ?>"><a href="#" onclick="MainPanelToFront('NO','YES');"><img src="<?php echo $selected_logo ?>" alt="MAIN" width="115px" height="30px" border="0" /></a></td>
-    <td align="left" width="67px"><a href="#" onclick="ScriptPanelToFront('YES');"><img src="./images/<?php echo _QXZ("vdc_tab_script.gif"); ?>" alt="SCRIPT" width="67px" height="30px" border="0" /></a></td>
-	<?php if ($SSenable_second_script > 0)
-    {echo "<td align=\"left\" width=\"67px\"><a href=\"#\" onclick=\"ScriptPanel2ToFront('YES');\"><img src=\"./images/"._QXZ("vdc_tab_script2.gif")."\" alt=\"SCRIPT 2\" width=\"67px\" height=\"30px\" border=\"0\" /></a></td>\n";}
-	?>
-	<?php if ($custom_fields_enabled > 0)
-    {echo "<td align=\"left\" width=\"67px\"><a href=\"#\" onclick=\"FormPanelToFront('YES');\"><img src=\"./images/"._QXZ("vdc_tab_form.gif")."\" alt=\"FORM\" width=\"67px\" height=\"30px\" border=\"0\" /></a></td>\n";}
-	?>
-	<?php if ($email_enabled > 0)
-    {echo "<td align=\"left\" width=\"67px\"><a href=\"#\" onclick=\"EmailPanelToFront('YES');\"><img src=\"./images/"._QXZ("vdc_tab_email.gif")."\" alt=\"EMAIL\" width=\"67px\" height=\"30px\" border=\"0\" /></a></td>\n";}
-	?>
-	<?php if ($chat_enabled > 0)
-		{
-		# INTERNAL CHAT
-		# Always show if chat is enabled for the system
-		echo "<td align=\"left\" width=\"67px\"><a href=\"#\" onclick=\"InternalChatContentsLoad('YES');\"><img src=\"./images/"._QXZ("vdc_tab_chat_internal.gif")."\" name='InternalChatImg' alt=\"CHAT\" width=\"67px\" height=\"30px\" border=\"0\"/></a></td>\n";
-
-		if ($campaign_chat_enabled=='Y')
-			{
-			# CUSTOMER CHAT
-			# Only show if chat is enabled for the system AND the campaign the agent is using.
-			echo "<td align=\"left\" width=\"67px\"><a href=\"#\" onclick=\"CustomerChatPanelToFront('1', 'YES');\"><img src=\"./images/"._QXZ("vdc_tab_chat_customer.gif")."\" name='CustomerChatImg' alt=\"CHAT\" width=\"67px\" height=\"30px\" border=\"0\"/></a></td>\n";
-			}
-		}
-	?>
-    <td width="<?php echo $HSwidth ?>px" valign="middle" align="center"><font class="body_tiny">&nbsp; <span id="status"><?php echo _QXZ("LIVE"); ?></span>&nbsp; &nbsp; <?php echo _QXZ("session ID:"); ?> <span id="sessionIDspan"></span></font><br><font class="body_text">&nbsp; &nbsp;<span id="AgentStatusCalls"></span>&nbsp; &nbsp;<span id="AgentStatusEmails"></span></font></td>
-    <td width="109px"><img src="./images/<?php echo _QXZ("agc_live_call_OFF.gif"); ?>" name="livecall" alt="Live Call" width="109px" height="30px" border="0" /></td>
-    </tr>
- </table>
-</span>
-
-<span style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="WelcomeBoxA">
-    <table border="0" bgcolor="#FFFFFF" width="<?php echo $CAwidth ?>px" height="<?php echo $HKwidth ?>px"><tr><td align="center"><br /><span id="WelcomeBoxAt"><?php echo _QXZ("Agent Screen"); ?></span></td></tr></table>
-</span>
+<div id="WelcomeBoxA" style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" class="w-full h-full flex items-center justify-center bg-white">
+    <div class="text-center">
+        <h1 id="WelcomeBoxAt" class="text-4xl font-bold"><?php echo _QXZ("Agent Screen"); ?></h1>
+    </div>
+</div>
 
 
 <!-- BEGIN *********   Here is the main VICIDIAL display panel -->
@@ -23380,71 +23456,56 @@ $zi=2;
 	?>
 	</td></tr>
     <tr><td colspan="3"><span id="busycallsdebug"></span></td></tr>
-    <tr><td width="150px" align="left" valign="top">
-	<font class="body_text"><center>
-    <span style="background-color: #CCFFCC" id="DiaLControl"><a href="#" onclick="ManualDialNext('','','','','','0','','','YES');"><img src="./images/<?php echo _QXZ("vdc_LB_dialnextnumber_OFF.gif"); ?>" border="0" alt="Dial Next Number" /></a></span><br />
-	<span id="ManualQueueNotice"></span>
-	<span id="ManualQueueChoice"></span>
-    <span id="DiaLLeaDPrevieW"><font class="preview_text"> <input type="checkbox" name="LeadPreview" size="1" value="0" /> <?php echo _QXZ("LEAD PREVIEW"); ?><br /></font></span>
-    <span id="DiaLDiaLAltPhonE"><font class="preview_text"> <input type="checkbox" name="DiaLAltPhonE" size="1" value="0" <?php echo $alt_phone_selected ?>/><?php echo _QXZ(" ALT PHONE DIAL"); ?><br /></font></span>
-    <font class="skb_text"><span id="NexTCalLPausE"> <a href="#" onclick="next_call_pause_click();return false;"><?php echo _QXZ("Next Call Pause"); ?></a> <br /></span></font>
+    <td class="w-48 align-top bg-gray-200 p-4 space-y-4">
+        <div class="text-center">
+            <span id="DiaLControl" class="inline-block bg-green-200 rounded-md p-2"><a href="#" onclick="ManualDialNext('','','','','','0','','','YES');" class="block"><img src="./images/<?php echo _QXZ("vdc_LB_dialnextnumber_OFF.gif"); ?>" border="0" alt="Dial Next Number" /></a></span>
+            <div id="ManualQueueNotice" class="text-xs text-red-600 mt-1"></div>
+            <div id="ManualQueueChoice" class="text-xs mt-1"></div>
+            <div id="DiaLLeaDPrevieW" class="text-xs mt-2"><input type="checkbox" name="LeadPreview" id="LeadPreview" class="mr-1" /> <label for="LeadPreview"><?php echo _QXZ("LEAD PREVIEW"); ?></label></div>
+            <div id="DiaLDiaLAltPhonE" class="text-xs mt-1"><input type="checkbox" name="DiaLAltPhonE" id="DiaLAltPhonE" class="mr-1" <?php echo $alt_phone_selected ?>/> <label for="DiaLAltPhonE"><?php echo _QXZ("ALT PHONE DIAL"); ?></label></div>
+            <div id="NexTCalLPausE" class="text-xs mt-2"><a href="#" onclick="next_call_pause_click();return false;" class="text-blue-500 hover:underline"><?php echo _QXZ("Next Call Pause"); ?></a></div>
+        </div>
 
-	<!--
-	<?php
-	if ( ($manual_dial_preview) and ($auto_dial_level==0) )
-        {echo "<font class=\"preview_text\"> <input type=\"checkbox\" name=\"LeadPreview\" size=\"1\" value=\"0\" /> LEAD PREVIEW<br /></font>";}
-	if ( ($alt_phone_dialing) and ($auto_dial_level==0) )
-        {echo "<font class=\"preview_text\"> <input type=\"checkbox\" name=\"DiaLAltPhonE\" size=\"1\" value=\"0\" /> ALT PHONE DIAL<br /></font>";}
-	?> -->
-    <?php echo _QXZ("RECORDING FILE:"); ?><br />
-	</center>
-    <font class="body_tiny"><span id="RecorDingFilename"></span></font><br />
-    <?php echo _QXZ("RECORD ID:"); ?> <font class="body_small"><span id="RecorDID"></span></font><br />
-	<center>
-	<!-- <a href=\"#\" onclick=\"conf_send_recording('MonitorConf','" + head_conf + "','','','');return false;\">Record</a> -->
-    <span style="background-color: <?php echo $MAIN_COLOR ?>" id="RecorDControl"><a href="#" onclick="conf_send_recording('MonitorConf',session_id,'','','','YES');return false;"><img src="./images/<?php echo _QXZ("$start_recording_GIF"); ?>" border="0" alt="Start Recording" /></a></span><br />
-    <span style="background-color: <?php echo $MAIN_COLOR ?>" id="RecorDMute"></span>
-   	<?php
-	if (!preg_match("/NOGAP/",$SSrecording_buttons))
-        {echo "<span id=\"SpacerSpanA\"><img src=\"./images/"._QXZ("blank.gif")."\" width=\"145px\" height=\"16px\" border=\"0\" /></span><br />\n";}
-	if ($SSenable_first_webform > 0)
-        {echo "<span style=\"background-color: #FFFFFF\" id=\"WebFormSpan\"><img src=\"./images/"._QXZ("vdc_LB_webform_OFF.gif")."\" border=\"0\" alt=\"Web Form\" /></span><br />\n";}
-	if ($enable_second_webform > 0)
-        {echo "<span style=\"background-color: #FFFFFF\" id=\"WebFormSpanTwo\"><img src=\"./images/"._QXZ("vdc_LB_webform_two_OFF.gif")."\" border=\"0\" alt=\"Web Form 2\" /></span><br />\n";}
-	if ($enable_third_webform > 0)
-        {echo "<span style=\"background-color: #FFFFFF\" id=\"WebFormSpanThree\"><img src=\"./images/"._QXZ("vdc_LB_webform_three_OFF.gif")."\" border=\"0\" alt=\"Web Form 3\" /></span><br />\n";}
-	?>
-    <font class="body_small_bold"><span id="ParkCounterSpan"> &nbsp; </span></font><br />
-    <span style="background-color: <?php echo $MAIN_COLOR ?>" id="ParkControl"><img src="./images/<?php echo _QXZ("vdc_LB_parkcall_OFF.gif"); ?>" border="0" alt="Park Call" /></span><br />
-	<?php
-	if ( ($ivr_park_call=='ENABLED') or ($ivr_park_call=='ENABLED_PARK_ONLY') )
-        {echo "<span style=\"background-color: $MAIN_COLOR\" id=\"ivrParkControl\"><img src=\"./images/"._QXZ("vdc_LB_ivrparkcall_OFF.gif")."\" border=\"0\" alt=\"IVR Park Call\" /></span><br />\n";}
-	else
-		{echo "<span style=\"background-color: $MAIN_COLOR\" id=\"ivrParkControl\"></span>\n";}
-	?>
-    <span style="background-color: <?php echo $MAIN_COLOR ?>" id="XferControl"><img src="./images/<?php echo _QXZ("vdc_LB_transferconf_OFF.gif"); ?>" border="0" alt="Transfer - Conference" /></span><br />
+        <div class="text-center p-2 bg-gray-100 rounded-md">
+            <div class="text-xs font-bold"><?php echo _QXZ("RECORDING FILE:"); ?></div>
+            <div class="text-xs break-words" id="RecorDingFilename"></div>
+            <div class="text-xs mt-1"><?php echo _QXZ("RECORD ID:"); ?> <span id="RecorDID" class="font-mono"></span></div>
+            <div class="mt-2" id="RecorDControl"><a href="#" onclick="conf_send_recording('MonitorConf',session_id,'','','','YES');return false;"><img src="./images/<?php echo _QXZ("$start_recording_GIF"); ?>" border="0" alt="Start Recording" /></a></div>
+            <div class="mt-1" id="RecorDMute"></div>
+        </div>
 
-	<?php
-	if ($quick_transfer_button_enabled > 0)
-        {echo "<span style=\"background-color: $MAIN_COLOR\" id=\"QuickXfer\"><img src=\"./images/"._QXZ("vdc_LB_quickxfer_OFF.gif")."\" border=\"0\" alt=\"Quick Transfer\" /></span><br />\n";}
-	if ($custom_3way_button_transfer_enabled > 0)
-        {echo "<span style=\"background-color: $MAIN_COLOR\" id=\"CustomXfer\"><img src=\"./images/"._QXZ("vdc_LB_customxfer_OFF.gif")."\" border=\"0\" alt=\"Custom Transfer\" /></span><br />\n";}
-	?>
+        <div class="space-y-2 text-center">
+            <?php if (!preg_match("/NOGAP/",$SSrecording_buttons)) { echo "<div class=\"h-4\"></div>"; } ?>
+            <?php if ($SSenable_first_webform > 0) { echo "<div id=\"WebFormSpan\"><img src=\"./images/"._QXZ("vdc_LB_webform_OFF.gif")."\" border=\"0\" alt=\"Web Form\" /></div>"; } ?>
+            <?php if ($enable_second_webform > 0) { echo "<div id=\"WebFormSpanTwo\"><img src=\"./images/"._QXZ("vdc_LB_webform_two_OFF.gif")."\" border=\"0\" alt=\"Web Form 2\" /></div>"; } ?>
+            <?php if ($enable_third_webform > 0) { echo "<div id=\"WebFormSpanThree\"><img src=\"./images/"._QXZ("vdc_LB_webform_three_OFF.gif")."\" border=\"0\" alt=\"Web Form 3\" /></div>"; } ?>
+        </div>
 
-	<span id="ReQueueCall"></span>
+        <div class="text-center">
+            <div class="text-xs font-bold" id="ParkCounterSpan"> &nbsp; </div>
+            <div class="mt-1" id="ParkControl"><img src="./images/<?php echo _QXZ("vdc_LB_parkcall_OFF.gif"); ?>" border="0" alt="Park Call" /></div>
+            <?php if ( ($ivr_park_call=='ENABLED') or ($ivr_park_call=='ENABLED_PARK_ONLY') ) { echo "<div class=\"mt-1\" id=\"ivrParkControl\"><img src=\"./images/"._QXZ("vdc_LB_ivrparkcall_OFF.gif")."\" border=\"0\" alt=\"IVR Park Call\" /></div>"; } else { echo "<div id=\"ivrParkControl\"></div>"; } ?>
+            <div class="mt-2" id="XferControl"><img src="./images/<?php echo _QXZ("vdc_LB_transferconf_OFF.gif"); ?>" border="0" alt="Transfer - Conference" /></div>
+        </div>
 
-	<?php
-	if ($call_requeue_button > 0)
-        {echo "<br />\n";}
-	?>
+        <div class="space-y-2 text-center">
+            <?php if ($quick_transfer_button_enabled > 0) { echo "<div id=\"QuickXfer\"><img src=\"./images/"._QXZ("vdc_LB_quickxfer_OFF.gif")."\" border=\"0\" alt=\"Quick Transfer\" /></div>"; } ?>
+            <?php if ($custom_3way_button_transfer_enabled > 0) { echo "<div id=\"CustomXfer\"><img src=\"./images/"._QXZ("vdc_LB_customxfer_OFF.gif")."\" border=\"0\" alt=\"Custom Transfer\" /></div>"; } ?>
+            <div id="ReQueueCall"></div>
+            <?php if ($call_requeue_button > 0) { echo "<div class=\"h-4\"></div>"; } ?>
+        </div>
 
-    <span id="SpacerSpanC"><img src="./images/<?php echo _QXZ("blank.gif"); ?>" width="145px" height="16px" border="0" /></span><br />
-    <span style="background-color: #FFCCFF<?php echo $agent_hide_hangup_ACTIVE_style ?>" id="HangupControl"><img src="./images/<?php echo _QXZ("vdc_LB_hangupcustomer_OFF.gif"); ?>" border="0" alt="Hangup Customer" /></span><br />
-    <span id="SpacerSpanD"><img src="./images/<?php echo _QXZ("blank.gif"); ?>" width="145px" height="16px" border="0" /></span><br />
-    <div class="text_input" id="SendDTMFdiv"><span style="background-color: <?php echo $MAIN_COLOR ?>" id="SendDTMF"><a href="#" onclick="SendConfDTMF(session_id,'YES');return false;"><img src="./images/<?php echo _QXZ("vdc_LB_senddtmf.gif"); ?>" border="0" alt="Send DTMF" align="bottom" /></a>  <input type="text" size="5" name="conf_dtmf" class="cust_form" value="" maxlength="50" /></div></span><br />
-	</center>
-	</font>
-	</td>
+        <div class="text-center">
+            <div class="h-4"></div>
+            <div id="HangupControl" class="bg-pink-200 inline-block p-1 rounded-md <?php echo $agent_hide_hangup_ACTIVE_style ?>"><img src="./images/<?php echo _QXZ("vdc_LB_hangupcustomer_OFF.gif"); ?>" border="0" alt="Hangup Customer" /></div>
+            <div class="h-4"></div>
+        </div>
+
+        <div class="text-center" id="SendDTMFdiv">
+            <span id="SendDTMF"><a href="#" onclick="SendConfDTMF(session_id,'YES');return false;"><img src="./images/<?php echo _QXZ("vdc_LB_senddtmf.gif"); ?>" border="0" alt="Send DTMF" class="align-bottom" /></a></span>
+            <input type="text" size="5" name="conf_dtmf" class="w-16 px-1 border border-gray-300 rounded-md" value="" maxlength="50" />
+        </div>
+    </td>
     <td width="<?php echo $SDwidth ?>px" align="left" valign="top">
     <input type="hidden" name="lead_id" id="lead_id" value="" />
     <input type="hidden" name="list_id" id="list_id" value="" />
@@ -23467,395 +23528,145 @@ $zi=2;
 
 	<!-- ZZZZZZZZZZZZ  customer info -->
 
-	<span class="text_input" id="MainPanelCustInfo">
-    <table><tr>
-    <td align="right"></td>
-    <td align="left"><font class="body_text">&nbsp; <?php echo _QXZ("Customer Time:"); ?> <span name="custdatetime" id="custdatetime" class="log_title"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span> &nbsp; &nbsp; <?php echo _QXZ("Channel:"); ?> <span name="callchannel" id="callchannel" class="cust_form"> </span></font></td>
-	</tr><tr>
-    <td colspan="2" align="center"> <font class="body_text"><?php echo _QXZ("Customer Information:"); ?></font> <span id="CusTInfOSpaN"></span> &nbsp; &nbsp; &nbsp; &nbsp; 
-	<?php
-	if ( ($agent_lead_search == 'ENABLED') or ($agent_lead_search == 'LIVE_CALL_INBOUND') or ($agent_lead_search == 'LIVE_CALL_INBOUND_AND_MANUAL') )
-		{echo "<font class=\"body_text\"><a href=\"#\" onclick=\"OpeNSearcHForMDisplaYBox();return false;\">"._QXZ("LEAD SEARCH")."</a></font>";}
-	?>
-	</td>
-	</tr><tr>
-    <td align="left" colspan="2">
+	<div id="MainPanelCustInfo" class="p-4 space-y-4">
+    <div class="flex justify-between items-center">
+        <div class="text-sm">
+            <?php echo _QXZ("Customer Time:"); ?> <span name="custdatetime" id="custdatetime" class="font-semibold"> &nbsp; </span>
+        </div>
+        <div class="text-sm">
+            <?php echo _QXZ("Channel:"); ?> <span name="callchannel" id="callchannel" class="font-mono"> </span>
+        </div>
+    </div>
+    <div class="text-center">
+        <span class="text-lg font-bold"><?php echo _QXZ("Customer Information:"); ?></span>
+        <span id="CusTInfOSpaN"></span>
+        <?php
+        if (($agent_lead_search == 'ENABLED') || ($agent_lead_search == 'LIVE_CALL_INBOUND') || ($agent_lead_search == 'LIVE_CALL_INBOUND_AND_MANUAL')) {
+            echo "<a href=\"#\" onclick=\"OpeNSearcHForMDisplaYBox();return false;\" class=\"ml-4 text-blue-500 hover:underline\">"._QXZ("LEAD SEARCH")."</a>";
+        }
+        ?>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+        <?php
+        $required_fields = '|';
 
-    <table width="550px"><tr>
-    <td align="right"><font class="body_text">
-	<?php
-	$required_fields = '|';
+        $fields = [
+            ['label' => 'title', 'db_field' => 'title', 'size' => '4', 'maxlength' => $MAXtitle],
+            ['label' => 'first_name', 'db_field' => 'first_name', 'size' => '17', 'maxlength' => $MAXfirst_name],
+            ['label' => 'middle_initial', 'db_field' => 'middle_initial', 'size' => '1', 'maxlength' => $MAXmiddle_initial],
+            ['label' => 'last_name', 'db_field' => 'last_name', 'size' => '23', 'maxlength' => $MAXlast_name],
+            ['label' => 'address1', 'db_field' => 'address1', 'size' => '85', 'maxlength' => $MAXaddress1, 'colspan' => 'lg:col-span-4'],
+            ['label' => 'address2', 'db_field' => 'address2', 'size' => '20', 'maxlength' => $MAXaddress2],
+            ['label' => 'address3', 'db_field' => 'address3', 'size' => '45', 'maxlength' => $MAXaddress3, 'colspan' => 'lg:col-span-3'],
+            ['label' => 'city', 'db_field' => 'city', 'size' => '20', 'maxlength' => $MAXcity],
+            ['label' => 'state', 'db_field' => 'state', 'size' => '4', 'maxlength' => $MAXstate],
+            ['label' => 'postal_code', 'db_field' => 'postal_code', 'size' => '14', 'maxlength' => $MAXpostal_code],
+            ['label' => 'province', 'db_field' => 'province', 'size' => '20', 'maxlength' => $MAXprovince],
+            ['label' => 'vendor_lead_code', 'db_field' => 'vendor_lead_code', 'size' => '15', 'maxlength' => $MAXvendor_lead_code],
+            ['label' => 'gender', 'db_field' => 'gender', 'type' => 'select', 'options' => ['U' => 'U - Undefined', 'M' => 'M - Male', 'F' => 'F - Female']],
+            ['label' => 'phone_number', 'db_field' => 'phone_number', 'size' => '20', 'maxlength' => $MAXphone_number, 'type' => 'phone'],
+            ['label' => 'phone_code', 'db_field' => 'phone_code', 'size' => '4', 'maxlength' => $MAXphone_code],
+            ['label' => 'alt_phone', 'db_field' => 'alt_phone', 'size' => '14', 'maxlength' => $MAXalt_phone],
+            ['label' => 'security_phrase', 'db_field' => 'security_phrase', 'size' => '20', 'maxlength' => $MAXsecurity_phrase],
+            ['label' => 'email', 'db_field' => 'email', 'size' => '45', 'maxlength' => $MAXemail, 'colspan' => 'lg:col-span-3'],
+        ];
 
-	if ($label_title == '---HIDE---')
-        {echo "</td><td align=\"left\" colspan=\"5\"><input type=\"hidden\" name=\"title\" id=\"title\" value=\"\" />";}
-	else
-        {
-		$title_readonly='';
-		if (preg_match("/---READONLY---/",$label_title))
-			{$title_readonly='readonly="readonly"';   $label_title = preg_replace("/---READONLY---/","",$label_title);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_title))
-				{$required_fields .= "title|";   $label_title = preg_replace("/---REQUIRED---/","",$label_title);}
-			}
-		echo "$label_title: </td><td align=\"left\" colspan=\"5\"><font class=\"body_text\"><input type=\"text\" size=\"4\" name=\"title\" id=\"title\" maxlength=\"$MAXtitle\" class=\"cust_form\" value=\"\" $title_readonly />";
-		}
-	if ($label_first_name == '---HIDE---')
-        {echo "&nbsp; <input type=\"hidden\" name=\"first_name\" id=\"first_name\" value=\"\" />";}
-	else
-        {
-		$first_name_readonly='';
-		if (preg_match("/---READONLY---/",$label_first_name))
-			{$first_name_readonly='readonly="readonly"';   $label_first_name = preg_replace("/---READONLY---/","",$label_first_name);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_first_name))
-				{$required_fields .= "first_name|";   $label_first_name = preg_replace("/---REQUIRED---/","",$label_first_name);}
-			}
-		echo "&nbsp; $label_first_name: <input type=\"text\" size=\"17\" name=\"first_name\" id=\"first_name\" maxlength=\"$MAXfirst_name\" class=\"cust_form\" value=\"\" $first_name_readonly />";
-		}
-	if ($label_middle_initial == '---HIDE---')
-        {echo "&nbsp; <input type=\"hidden\" name=\"middle_initial\" id=\"middle_initial\" value=\"\" />";}
-	else
-        {
-		$middle_initial_readonly='';
-		if (preg_match("/---READONLY---/",$label_middle_initial))
-			{$middle_initial_readonly='readonly="readonly"';   $label_middle_initial = preg_replace("/---READONLY---/","",$label_middle_initial);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_middle_initial))
-				{$required_fields .= "middle_initial|";   $label_middle_initial = preg_replace("/---REQUIRED---/","",$label_middle_initial);}
-			}
-		echo "&nbsp; $label_middle_initial: <input type=\"text\" size=\"1\" name=\"middle_initial\" id=\"middle_initial\" maxlength=\"$MAXmiddle_initial\" class=\"cust_form\" value=\"\" $middle_initial_readonly />";
-		}
-	if ($label_last_name == '---HIDE---')
-        {echo "&nbsp; <input type=\"hidden\" name=\"last_name\" id=\"last_name\" value=\"\" />";}
-	else
-        {
-		$last_name_readonly='';
-		if (preg_match("/---READONLY---/",$label_last_name))
-			{$last_name_readonly='readonly="readonly"';   $label_last_name = preg_replace("/---READONLY---/","",$label_last_name);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_last_name))
-				{$required_fields .= "last_name|";   $label_last_name = preg_replace("/---REQUIRED---/","",$label_last_name);}
-			}
-		echo "&nbsp; $label_last_name: <input type=\"text\" size=\"23\" name=\"last_name\" id=\"last_name\" maxlength=\"$MAXlast_name\" class=\"cust_form\" value=\"\" $last_name_readonly />";
-		}
-	
-    echo "</td></tr><tr><td align=\"right\"><font class=\"body_text\">";
-	
-	if ($label_address1 == '---HIDE---')
-        {echo " </td><td align=\"left\" colspan=\"5\"><input type=\"hidden\" name=\"address1\" id=\"address1\" value=\"\" />";}
-	else
-        {
-		$address1_readonly='';
-		if (preg_match("/---READONLY---/",$label_address1))
-			{$address1_readonly='readonly="readonly"';   $label_address1 = preg_replace("/---READONLY---/","",$label_address1);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_address1))
-				{$required_fields .= "address1|";   $label_address1 = preg_replace("/---REQUIRED---/","",$label_address1);}
-			}
-		echo "$label_address1: </td><td align=\"left\" colspan=5><font class=\"body_text\"><input type=\"text\" size=\"85\" name=\"address1\" id=\"address1\" maxlength=\"$MAXaddress1\" class=\"cust_form\" value=\"\" $address1_readonly />";
-		}
-	
-    echo "</td></tr><tr><td align=\"right\"><font class=\"body_text\">";
+        foreach ($fields as $field) {
+            $label_var = 'label_' . $field['label'];
+            if ($$label_var != '---HIDE---') {
+                $readonly = '';
+                $label_text = $$label_var;
+                if (preg_match("/---READONLY---/", $label_text)) {
+                    $readonly = 'readonly="readonly"';
+                    $label_text = preg_replace("/---READONLY---/", "", $label_text);
+                } else {
+                    if (preg_match("/---REQUIRED---/", $label_text)) {
+                        $required_fields .= $field['db_field'] . "|";
+                        $label_text = preg_replace("/---REQUIRED---/", "", $label_text);
+                    }
+                }
+                $colspan = isset($field['colspan']) ? $field['colspan'] : '';
+                echo "<div class=\"flex flex-col $colspan\">";
+                echo "<label for=\"{$field['db_field']}\" class=\"mb-1\">{$label_text}:</label>";
 
-	if ($label_address2 == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"address2\" id=\"address2\" value=\"\" />";}
-	else
-        {
-		$address2_readonly='';
-		if (preg_match("/---READONLY---/",$label_address2))
-			{$address2_readonly='readonly="readonly"';   $label_address2 = preg_replace("/---READONLY---/","",$label_address2);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_address2))
-				{$required_fields .= "address2|";   $label_address2 = preg_replace("/---REQUIRED---/","",$label_address2);}
-			}
-		echo "$label_address2: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"20\" name=\"address2\" id=\"address2\" maxlength=\"$MAXaddress2\" class=\"cust_form\" value=\"\" $address2_readonly />";
-		}
-
-    echo "</td><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_address3 == '---HIDE---')
-        {echo " </td><td align=\"left\" colspan=\"3\"><input type=\"hidden\" name=\"address3\" id=\"address3\" value=\"\" />";}
-	else
-        {
-		$address3_readonly='';
-		if (preg_match("/---READONLY---/",$label_address3))
-			{$address3_readonly='readonly="readonly"';   $label_address3 = preg_replace("/---READONLY---/","",$label_address3);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_address3))
-				{$required_fields .= "address3|";   $label_address3 = preg_replace("/---REQUIRED---/","",$label_address3);}
-			}
-		echo "$label_address3: </td><td align=\"left\" colspan=\"3\"><font class=\"body_text\"><input type=\"text\" size=\"45\" name=\"address3\" id=\"address3\" maxlength=\"$MAXaddress3\" class=\"cust_form\" value=\"\" $address3_readonly />";
-		}
-
-    echo "</td></tr><tr><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_city == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"city\" id=\"city\" value=\"\" />";}
-	else
-        {
-		$city_readonly='';
-		if (preg_match("/---READONLY---/",$label_city))
-			{$city_readonly='readonly="readonly"';   $label_city = preg_replace("/---READONLY---/","",$label_city);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_city))
-				{$required_fields .= "city|";   $label_city = preg_replace("/---REQUIRED---/","",$label_city);}
-			}
-		echo "$label_city: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"20\" name=\"city\" id=\"city\" maxlength=\"$MAXcity\" class=\"cust_form\" value=\"\" $city_readonly />";
-		}
-
-    echo "</td><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_state == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"state\" id=\"state\" value=\"\" />";}
-	else
-        {
-		$state_readonly='';
-		if (preg_match("/---READONLY---/",$label_state))
-			{$state_readonly='readonly="readonly"';   $label_state = preg_replace("/---READONLY---/","",$label_state);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_state))
-				{$required_fields .= "state|";   $label_state = preg_replace("/---REQUIRED---/","",$label_state);}
-			}
-		echo "$label_state: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"4\" name=\"state\" id=\"state\" maxlength=\"$MAXstate\" class=\"cust_form\" value=\"\" $state_readonly />";
-		}
-
-    echo "</td><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_postal_code == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"postal_code\" id=\"postal_code\" value=\"\" />";}
-	else
-        {
-		$postal_code_readonly='';
-		if (preg_match("/---READONLY---/",$label_postal_code))
-			{$postal_code_readonly='readonly="readonly"';   $label_postal_code = preg_replace("/---READONLY---/","",$label_postal_code);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_postal_code))
-				{$required_fields .= "postal_code|";   $label_postal_code = preg_replace("/---REQUIRED---/","",$label_postal_code);}
-			}
-		echo "$label_postal_code: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"14\" name=\"postal_code\" id=\"postal_code\" maxlength=\"$MAXpostal_code\" class=\"cust_form\" value=\"\" $postal_code_readonly />";
-		}
-
-    echo "</td></tr><tr><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_province == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"province\" id=\"province\" value=\"\" />";}
-	else
-        {
-		$province_readonly='';
-		if (preg_match("/---READONLY---/",$label_province))
-			{$province_readonly='readonly="readonly"';   $label_province = preg_replace("/---READONLY---/","",$label_province);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_province))
-				{$required_fields .= "province|";   $label_province = preg_replace("/---REQUIRED---/","",$label_province);}
-			}
-		echo "$label_province: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"20\" name=\"province\" id=\"province\" maxlength=\"$MAXprovince\" class=\"cust_form\" value=\"\" $province_readonly />";
-		}
-
-    echo "</td><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_vendor_lead_code == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"vendor_lead_code\" id=\"vendor_lead_code\" value=\"\" />";}
-	else
-        {
-		$vendor_lead_code_readonly='';
-		if (preg_match("/---READONLY---/",$label_vendor_lead_code))
-			{$vendor_lead_code_readonly='readonly="readonly"';   $label_vendor_lead_code = preg_replace("/---READONLY---/","",$label_vendor_lead_code);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_vendor_lead_code))
-				{$required_fields .= "vendor_lead_code|";   $label_vendor_lead_code = preg_replace("/---REQUIRED---/","",$label_vendor_lead_code);}
-			}
-		echo "$label_vendor_lead_code: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"15\" name=\"vendor_lead_code\" id=\"vendor_lead_code\" maxlength=\"$MAXvendor_lead_code\" class=\"cust_form\" value=\"\" $vendor_lead_code_readonly />";
-		}
-
-    echo "</td><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_gender == '---HIDE---')
-		{
-		echo "</td><td align=\"left\"><font class=\"body_text\"><span id=\"GENDERhideFORie\"><input type=\"hidden\" name=\"gender_list\" id=\"gender_list\" value=\"\" /></span>";
-		}
-	else
-        {
-		echo "$label_gender: </td><td align=\"left\"><font class=\"body_text\"><span id=\"GENDERhideFORie\"><select size=\"1\" name=\"gender_list\" class=\"cust_form\" id=\"gender_list\"><option value=\"U\">"._QXZ("U - Undefined")."</option><option value=\"M\">"._QXZ("M - Male")."</option><option value=\"F\">"._QXZ("F - Female")."</option></select></span>";
-		}
-
-    echo "</td></tr><tr><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_phone_number == '---HIDE---')
-        {
-		echo " </td><td align=\"left\"><input type=\"hidden\" name=\"phone_number\" id=\"phone_number\" value=\"\" />";
-		echo "<font class=\"body_text\"><span id=\"phone_numberDISP\"> &nbsp; </span></font>";
-		}
-	else
-        {
-		echo "$label_phone_number: </td><td align=\"left\"><font class=\"body_text\">";
-
-		if ( (preg_match('/Y/',$disable_alter_custphone)) or (preg_match('/HIDE/',$disable_alter_custphone)) )
-			{
-			echo "<font class=\"body_text\"><span id=\"phone_numberDISP\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></font>";
-			echo "<input type=\"hidden\" name=\"phone_number\" id=\"phone_number\" value=\"\" />";
-			}
-		else
-			{
-			echo "<input type=\"text\" size=\"20\" name=\"phone_number\" id=\"phone_number\" maxlength=\"$MAXphone_number\" class=\"cust_form\" value=\"\" />";
-			}
-		}
-
-    echo "</td><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_phone_code == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"phone_code\" id=\"phone_code\" value=\"\" />";}
-	else
-        {
-		$phone_code_readonly='';
-		if (preg_match("/---READONLY---/",$label_phone_code))
-			{$phone_code_readonly='readonly="readonly"';   $label_phone_code = preg_replace("/---READONLY---/","",$label_phone_code);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_phone_code))
-				{$required_fields .= "phone_code|";   $label_phone_code = preg_replace("/---REQUIRED---/","",$label_phone_code);}
-			}
-		echo "$label_phone_code: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"4\" name=\"phone_code\" id=\"phone_code\" maxlength=\"$MAXphone_code\" class=\"cust_form\" value=\"\" $phone_code_readonly />";
-		}
-
-    echo "</td><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_alt_phone == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"alt_phone\" id=\"alt_phone\" value=\"\" />";}
-	else
-        {
-		$alt_phone_readonly='';
-		if (preg_match("/---READONLY---/",$label_alt_phone))
-			{$alt_phone_readonly='readonly="readonly"';   $label_alt_phone = preg_replace("/---READONLY---/","",$label_alt_phone);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_alt_phone))
-				{$required_fields .= "alt_phone|";   $label_alt_phone = preg_replace("/---REQUIRED---/","",$label_alt_phone);}
-			}
-		echo "$label_alt_phone: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"14\" name=\"alt_phone\" id=\"alt_phone\" maxlength=\"$MAXalt_phone\" class=\"cust_form\" value=\"\" $alt_phone_readonly />";
-		}
-
-    echo "</td></tr><tr><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_security_phrase == '---HIDE---')
-        {echo " </td><td align=\"left\"><input type=\"hidden\" name=\"security_phrase\" id=\"security_phrase\" value=\"\" />";}
-	else
-        {
-		$security_phrase_readonly='';
-		if (preg_match("/---READONLY---/",$label_security_phrase))
-			{$security_phrase_readonly='readonly="readonly"';   $label_security_phrase = preg_replace("/---READONLY---/","",$label_security_phrase);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_security_phrase))
-				{$required_fields .= "security_phrase|";   $label_security_phrase = preg_replace("/---REQUIRED---/","",$label_security_phrase);}
-			}
-		echo "$label_security_phrase: </td><td align=\"left\"><font class=\"body_text\"><input type=\"text\" size=\"20\" name=\"security_phrase\" id=\"security_phrase\" maxlength=\"$MAXsecurity_phrase\" class=\"cust_form\" value=\"\" $security_phrase_readonly />";
-		}
-
-    echo "</td><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_email == '---HIDE---')
-        {echo " </td><td align=\"left\" colspan=\"3\"><input type=\"hidden\" name=\"email\" id=\"email\" value=\"\" />";}
-	else
-        {
-		$email_readonly='';
-		if (preg_match("/---READONLY---/",$label_email))
-			{$email_readonly='readonly="readonly"';   $label_email = preg_replace("/---READONLY---/","",$label_email);}
-		else
-			{
-			if (preg_match("/---REQUIRED---/",$label_email))
-				{$required_fields .= "email|";   $label_email = preg_replace("/---REQUIRED---/","",$label_email);}
-			}
-		echo "$label_email: </td><td align=\"left\" colspan=\"3\"><font class=\"body_text\"><input type=\"text\" size=\"45\" name=\"email\" id=\"email\" maxlength=\"$MAXemail\" class=\"cust_form\" value=\"\" $email_readonly />";
-		}
-
-	if (strlen($agent_display_fields) > 3)
-		{
-	    echo "</td></tr><tr><td align=\"left\" colspan=\"5\"><font class=\"body_text\">";
-
-		if (preg_match("/entry_date/",$agent_display_fields))
-			{
-			echo "$label_entry_date: &nbsp; <font class=\"body_text\"><span id=\"entry_dateDISP\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span> &nbsp; </font>";
-			}
-		if (preg_match("/source_id/",$agent_display_fields))
-			{
-			echo "$label_source_id: &nbsp; <font class=\"body_text\"><span id=\"source_idDISP\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span> &nbsp; </font>";
-			}
-		if (preg_match("/date_of_birth/",$agent_display_fields))
-			{
-			echo "$label_date_of_birth: &nbsp; <font class=\"body_text\"><span id=\"date_of_birthDISP\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span> &nbsp; </font>";
-			}
-		if (preg_match("/rank/",$agent_display_fields))
-			{
-			echo "$label_rank: &nbsp; <font class=\"body_text\"><span id=\"rankDISP\"> &nbsp; &nbsp; </span> &nbsp; </font>";
-			}
-		if (preg_match("/owner/",$agent_display_fields))
-			{
-			echo "$label_owner: &nbsp; <font class=\"body_text\"><span id=\"ownerDISP\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span> &nbsp; </font>";
-			}
-		if (preg_match("/last_local_call_time/",$agent_display_fields))
-			{
-			echo "$label_last_local_call_time: &nbsp; <font class=\"body_text\"><span id=\"last_local_call_timeDISP\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span> &nbsp; </font>";
-			}
-		}
-
-    echo "</td></tr><tr><td align=\"right\"><font class=\"body_text\">";
-
-	if ($label_comments == '---HIDE---')
-		{
-        echo " </td><td align=\"left\" colspan=5>";
-        echo "<input type=\"hidden\" name=\"comments\" id=\"comments\" value=\"\" />\n";
-        echo "<input type=\"hidden\" name=\"other_tab_comments\" id=\"other_tab_comments\" value=\"\" />\n";
-        echo "<input type=\"hidden\" name=\"dispo_comments\" id=\"dispo_comments\" value=\"\" />\n";
-        echo "<input type=\"hidden\" name=\"callback_comments\" id=\"callback_comments\" value=\"\" />\n";
-        echo "<span id='viewcommentsdisplay'><input type='button' id='ViewCommentButton' onClick=\"ViewComments('ON','','','YES')\" value='-"._QXZ("History")."-'/></span>\n";
-        echo "<span id='otherviewcommentsdisplay'><input type='button' id='OtherViewCommentButton' onClick=\"ViewComments('ON','','','YES')\" value='-"._QXZ("History")."-'/></span>\n";
-		}
-	else
-		{
-        echo "$label_comments: <br><span id='viewcommentsdisplay'><input type='button' id='ViewCommentButton' onClick=\"ViewComments('ON','','','YES')\" value='-"._QXZ("History")."-'/></span>
-		</td><td align=\"left\" colspan=\"5\"><font class=\"body_text\">";
-		if ( ($multi_line_comments) )
-            {echo "<textarea name=\"comments\" id=\"comments\" rows=\"2\" cols=\"85\" class=\"cust_form_text\" value=\"\"></textarea>\n";}
-		else
-            {echo "<input type=\"text\" size=\"65\" name=\"comments\" id=\"comments\" maxlength=\"255\" class=\"cust_form\" value=\"\" />\n";}
-		}
-	echo "</font></td>
-		</tr><tr><td align=\"right\"><font class=\"body_text\">\n";
-
-	if ($per_call_notes == 'ENABLED')
-		{
-        echo _QXZ("Call Notes: ");
-		if ($agent_call_log_view == '1')
-			{echo "<br /><span id=\"CallNotesButtons\"><a href=\"#\" onclick=\"VieWNotesLoG();return false;\">"._QXZ("view notes")."</a></span> ";}
-        echo "</td><td align=\"left\" colspan=\"5\"><font class=\"body_text\">";
-		echo "<textarea name=\"call_notes\" id=\"call_notes\" rows=\"2\" cols=\"85\" class=\"cust_form_text\" value=\"\"></textarea>\n";
-		}
-	else
-		{
-        echo " </td><td align=\"left\" colspan=5><input type=\"hidden\" name=\"call_notes\" id=\"call_notes\" value=\"\" /><span id=\"CallNotesButtons\"></span>\n";
-		}
-
-	echo "<input type=\"hidden\" name=\"required_fields\" id=\"required_fields\" value=\"$required_fields\" />\n";
-
-	?>
-	</font>
-	</td>
-
-    </tr></table></td>
-    </tr></table>
-	</span>
+                if (isset($field['type']) && $field['type'] == 'select') {
+                    echo "<span id=\"GENDERhideFORie\"><select name=\"gender_list\" id=\"gender_list\" class=\"w-full p-1 border border-gray-300 rounded-md\">";
+                    foreach ($field['options'] as $value => $option_label) {
+                        echo "<option value=\"$value\">"._QXZ($option_label)."</option>";
+                    }
+                    echo "</select></span>";
+                } else if (isset($field['type']) && $field['type'] == 'phone') {
+                    if ((preg_match('/Y/', $disable_alter_custphone)) || (preg_match('/HIDE/', $disable_alter_custphone))) {
+                        echo "<span id=\"phone_numberDISP\" class=\"p-1 bg-gray-200 rounded-md\">&nbsp;</span>";
+                        echo "<input type=\"hidden\" name=\"phone_number\" id=\"phone_number\" value=\"\" />";
+                    } else {
+                        echo "<input type=\"text\" size=\"{$field['size']}\" name=\"phone_number\" id=\"phone_number\" maxlength=\"{$field['maxlength']}\" class=\"w-full p-1 border border-gray-300 rounded-md\" value=\"\" />";
+                    }
+                } else {
+                    echo "<input type=\"text\" size=\"{$field['size']}\" name=\"{$field['db_field']}\" id=\"{$field['db_field']}\" maxlength=\"{$field['maxlength']}\" class=\"w-full p-1 border border-gray-300 rounded-md\" value=\"\" $readonly />";
+                }
+                echo "</div>";
+            } else {
+                echo "<input type=\"hidden\" name=\"{$field['db_field']}\" id=\"{$field['db_field']}\" value=\"\" />";
+            }
+        }
+        ?>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-4">
+        <?php
+        if (strlen($agent_display_fields) > 3) {
+            $display_map = [
+                'entry_date' => 'entry_dateDISP',
+                'source_id' => 'source_idDISP',
+                'date_of_birth' => 'date_of_birthDISP',
+                'rank' => 'rankDISP',
+                'owner' => 'ownerDISP',
+                'last_local_call_time' => 'last_local_call_timeDISP'
+            ];
+            foreach ($display_map as $field => $span_id) {
+                if (preg_match("/$field/", $agent_display_fields)) {
+                    $label_var = 'label_' . $field;
+                    echo "<div>${$label_var}: &nbsp; <span id=\"$span_id\" class=\"font-semibold\">&nbsp;</span></div>";
+                }
+            }
+        }
+        ?>
+    </div>
+    <div class="mt-4">
+        <?php
+        if ($label_comments != '---HIDE---') {
+            echo "<label for=\"comments\" class=\"block mb-1\">$label_comments: <span id='viewcommentsdisplay'><button type='button' id='ViewCommentButton' onClick=\"ViewComments('ON','','','YES')\" class=\"ml-2 text-xs text-blue-500 hover:underline\">-"._QXZ("History")."-</button></span></label>";
+            if ($multi_line_comments) {
+                echo "<textarea name=\"comments\" id=\"comments\" rows=\"2\" class=\"w-full p-1 border border-gray-300 rounded-md\"></textarea>";
+            } else {
+                echo "<input type=\"text\" name=\"comments\" id=\"comments\" class=\"w-full p-1 border border-gray-300 rounded-md\" maxlength=\"255\" />";
+            }
+        } else {
+             echo "<input type=\"hidden\" name=\"comments\" id=\"comments\" value=\"\" />\n";
+             echo "<input type=\"hidden\" name=\"other_tab_comments\" id=\"other_tab_comments\" value=\"\" />\n";
+             echo "<input type=\"hidden\" name=\"dispo_comments\" id=\"dispo_comments\" value=\"\" />\n";
+             echo "<input type=\"hidden\" name=\"callback_comments\" id=\"callback_comments\" value=\"\" />\n";
+             echo "<span id='viewcommentsdisplay'><button type='button' id='ViewCommentButton' onClick=\"ViewComments('ON','','','YES')\" class=\"text-xs text-blue-500 hover:underline\">-"._QXZ("History")."-</button></span>\n";
+             echo "<span id='otherviewcommentsdisplay'><button type='button' id='OtherViewCommentButton' onClick=\"ViewComments('ON','','','YES')\" class=\"text-xs text-blue-500 hover:underline\">-"._QXZ("History")."-</button></span>\n";
+        }
+        ?>
+    </div>
+    <div class="mt-4">
+        <?php
+        if ($per_call_notes == 'ENABLED') {
+            echo "<label for=\"call_notes\" class=\"block mb-1\">"._QXZ("Call Notes: ");
+            if ($agent_call_log_view == '1') {
+                echo "<span id=\"CallNotesButtons\"><a href=\"#\" onclick=\"VieWNotesLoG();return false;\" class=\"ml-2 text-xs text-blue-500 hover:underline\">"._QXZ("view notes")."</a></span>";
+            }
+            echo "</label>";
+            echo "<textarea name=\"call_notes\" id=\"call_notes\" rows=\"2\" class=\"w-full p-1 border border-gray-300 rounded-md\"></textarea>";
+        } else {
+            echo "<input type=\"hidden\" name=\"call_notes\" id=\"call_notes\" value=\"\" /><span id=\"CallNotesButtons\"></span>";
+        }
+        ?>
+    </div>
+    <input type="hidden" name="required_fields" id="required_fields" value="<?php echo $required_fields; ?>" />
+</div>
 	</font>
 	</td>
     <td width="1" align="center">
@@ -23877,86 +23688,90 @@ $zi=2;
 
 <span style="position:absolute;left:0px;top:<?php echo $DBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="debugbottomspan"></span>
 
-<span style="position:absolute;left:300px;top:<?php echo $MBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="DiaLlOgButtonspan">
-<span id="ManuaLDiaLButtons"><font class="body_text"><span id="MDstatusSpan"><a href="#" onclick="NeWManuaLDiaLCalL('NO','','','','','YES','YES');return false;"><?php echo _QXZ("MANUAL DIAL"); ?></a></span>&nbsp; &nbsp; 
-<?php if ($agentcall_manual == '1') { ?>
-<a href="#" onclick="NeWManuaLDiaLCalL('FAST','','','','','YES','YES');return false;"><?php echo _QXZ("FAST DIAL"); ?></a>
-<?php } ?>
-</span>&nbsp; &nbsp; </font>
-<span id="CallLogButtons"><font class="body_text"><span id="CallLogLinkSpan"><a href="#" onclick="VieWCalLLoG();return false;"><?php echo _QXZ("VIEW CALL LOG"); ?></a></span><br /></font></span>
-</span>
+<div class="fixed bottom-0 left-0 w-full bg-gray-100 p-2 z-20">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <div id="DiaLlOgButtonspan">
+                <span id="ManuaLDiaLButtons" class="space-x-2">
+                    <a href="#" onclick="NeWManuaLDiaLCalL('NO','','','','','YES','YES');return false;" class="px-3 py-1 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"><?php echo _QXZ("MANUAL DIAL"); ?></a>
+                    <?php if ($agentcall_manual == '1') { ?>
+                    <a href="#" onclick="NeWManuaLDiaLCalL('FAST','','','','','YES','YES');return false;" class="px-3 py-1 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"><?php echo _QXZ("FAST DIAL"); ?></a>
+                    <?php } ?>
+                </span>
+                <span id="CallLogButtons" class="ml-2">
+                    <a href="#" onclick="VieWCalLLoG();return false;" class="text-xs text-blue-500 hover:underline"><?php echo _QXZ("VIEW CALL LOG"); ?></a>
+                </span>
+            </div>
+            <div id="AgentTimeSpan">
+                <a href="#" onclick="AgentTimeReport('open');return false;" class="text-xs text-blue-500 hover:underline"><?php echo _QXZ("AGENT TIME"); ?></a>
+            </div>
+            <div id="PauseCodeButtons">
+                <span id="PauseCodeLinkSpan" class="text-xs"></span>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4 text-xs">
+            <span><?php echo _QXZ("VERSION:"); ?> <?php echo $version ?></span>
+            <span><?php echo _QXZ("BUILD:"); ?> <?php echo $build ?></span>
+            <span><?php echo _QXZ("Server:"); ?> <?php echo $server_ip ?></span>
+            <span id="busycallsdisplay"><a href="#" onclick="conf_channels_detail('SHOW');" class="text-blue-500 hover:underline"><?php echo _QXZ("Show conference call channel information"); ?></a></span>
+             <span id="AgentAlertSpan">
+                <?php
+                if ( (preg_match('/ON/',$VU_alert_enabled)) and ($AgentAlert_allowed > 0) )
+                    {echo "<a href=\"#\" onclick=\"alert_control('OFF');return false;\" class=\"text-green-500 hover:underline\">"._QXZ("Alert is ON")."</a>";}
+                else
+                    {echo "<a href=\"#\" onclick=\"alert_control('ON');return false;\" class=\"text-red-500 hover:underline\">"._QXZ("Alert is OFF")."</a>";}
+                ?>
+            </span>
+        </div>
+    </div>
+    <div id="outboundcallsspan" class="mt-2"></div>
+</div>
 
-<span style="position:absolute;left:165px;top:<?php echo $CBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="AgentTimeSpan">
-<font class="body_text"><a href="#" onclick="AgentTimeReport('open');return false;"><?php echo _QXZ("AGENT TIME"); ?></a></font>
-</span>
+<div id="SecondSspan" style="position:absolute;left:<?php echo $SCwidth ?>px;top:<?php echo $SCheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="text-xs">
+    <?php echo _QXZ("seconds:"); ?> <span id="SecondSDISP" class="font-semibold"> &nbsp; </span>
+</div>
 
-<span style="position:absolute;left:550px;top:<?php echo $CBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="PauseCodeButtons"><font class="body_text">
-<span id="PauseCodeLinkSpan"></span> <br />
-</font></span>
+<div id="VolumeControlSpan" style="position:absolute;left:5px;top:<?php echo $CBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="flex flex-col space-y-1">
+    <span id="VolumeUpSpan"><img src="./images/<?php echo _QXZ("vdc_volume_up_off.gif"); ?>" border="0" /></span>
+    <span id="VolumeDownSpan"><img src="./images/<?php echo _QXZ("vdc_volume_down_off.gif"); ?>" border="0" /></span>
+</div>
 
-<span style="position:absolute;left:0px;top:<?php echo $PBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="MaiNfooterspan">
-<span id="blind_monitor_notice_span"><b><font color="red"> &nbsp; &nbsp; <span id="blind_monitor_notice_span_contents"></span></font></b></span>
-    <table bgcolor="<?php echo $MAIN_COLOR ?>" id="MaiNfooter" width="<?php echo $MNwidth ?>px"><tr height="32px"><td height="32px"><font face="Arial,Helvetica" size="1"><?php echo _QXZ("VERSION:"); ?> <?php echo $version ?> &nbsp; <?php echo _QXZ("BUILD:"); ?> <?php echo $build ?> &nbsp; &nbsp; <?php echo _QXZ("Server:"); ?> <?php echo $server_ip ?>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</font><br />
-	<font class="body_small">
-	<span id="busycallsdisplay"><a href="#"  onclick="conf_channels_detail('SHOW');"><?php echo _QXZ("Show conference call channel information"); ?></a>
-    <br /><br />&nbsp;</span></font></td><td align="right" height="32px">
-	</td></tr>
-    <tr><td colspan="3"><span id="outboundcallsspan"></span></td></tr>
-    <tr><td colspan="3"><font class="body_small"><span id="AgentAlertSpan">
-	<?php
-	if ( (preg_match('/ON/',$VU_alert_enabled)) and ($AgentAlert_allowed > 0) )
-		{echo "<a href=\"#\" onclick=\"alert_control('OFF');return false;\">"._QXZ("Alert is ON")."</a>";}
-	else
-		{echo "<a href=\"#\" onclick=\"alert_control('ON');return false;\">"._QXZ("Alert is OFF")."</a>";}
-	?>
-	</span></font></td></tr>
-    <tr><td colspan="3">
-	<font class="body_small">
-	</font>
-    </td></tr></table>
-</span>
+<div id="AgentStatusSpan" style="position:absolute;left:35px;top:<?php echo $CBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="text-xs">
+    <div><?php echo _QXZ("Your Status:"); ?> <span id="AgentStatusStatus" class="font-semibold"></span></div>
+    <div><?php echo _QXZ("Calls Dialing:"); ?> <span id="AgentStatusDiaLs" class="font-semibold"></span></div>
+</div>
 
-<span style="position:absolute;left:<?php echo $SCwidth ?>px;top:<?php echo $SCheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="SecondSspan"><font class="body_text"> <?php echo _QXZ("seconds:"); ?> 
-<span id="SecondSDISP"> &nbsp; &nbsp; </span></font>
-</font></span>
+<div id="AgentMuteANDPreseTDiaL" style="position:absolute;left:<?php echo $PDwidth ?>px;top:<?php echo $AMheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="text-xs flex items-center space-x-2">
+    <?php
+    if ($PreseT_DiaL_LinKs) {
+        echo "<a href=\"#\" onclick=\"DtMf_PreSet_a_DiaL('NO','YES');return false;\" class=\"px-2 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300\">"._QXZ("D1 - DIAL")."</a>";
+        echo "<a href=\"#\" onclick=\"DtMf_PreSet_b_DiaL('NO','YES');return false;\" class=\"px-2 py-1 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300\">"._QXZ("D2 - DIAL")."</a>";
+    }
+    ?>
+</div>
 
-<span style="position:absolute;left:5px;top:<?php echo $CBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="VolumeControlSpan"><span id="VolumeUpSpan"><img src="./images/<?php echo _QXZ("vdc_volume_up_off.gif"); ?>" border="0" /></span><br /><span id="VolumeDownSpan"><img src="./images/<?php echo _QXZ("vdc_volume_down_off.gif"); ?>" border="0" /></span>
-</font></span>
+<div id="callsinqueuedisplay" style="position:absolute;left:0px;top:<?php echo $CQheight ?>px;width:<?php echo $MNwidth ?>px;z-index:<?php $zi++; echo $zi ?>;" class="overflow-scroll bg-gray-100">
+    <div class="p-2">
+        <div class="text-center font-bold"><?php echo _QXZ("Calls In Queue:"); ?></div>
+        <div id="callsinqueuelist" class="mt-2"></div>
+    </div>
+</div>
 
-<span style="position:absolute;left:35px;top:<?php echo $CBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="AgentStatusSpan"><font class="body_text">
-<?php echo _QXZ("Your Status:"); ?> <span id="AgentStatusStatus"></span> <br /><?php echo _QXZ("Calls Dialing:"); ?> <span id="AgentStatusDiaLs"></span>
-</font></span>
+<div id="callsinqueuelink" style="position:absolute;left:<?php echo $CLwidth ?>px;top:<?php echo $QLheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="text-xs">
+    <?php
+    if ($view_calls_in_queue > 0) {
+        if ($view_calls_in_queue_launch > 0) {
+            echo "<a href=\"#\" onclick=\"show_calls_in_queue('HIDE');\" class=\"text-blue-500 hover:underline\">"._QXZ("Hide Calls In Queue")."</a>";
+        } else {
+            echo "<a href=\"#\" onclick=\"show_calls_in_queue('SHOW');\" class=\"text-blue-500 hover:underline\">"._QXZ("Show Calls In Queue")."</a>";
+        }
+    }
+    ?>
+</div>
 
-<span style="position:absolute;left:<?php echo $PDwidth ?>px;top:<?php echo $AMheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="AgentMuteANDPreseTDiaL"><font class="body_text">
-	<?php
-	if ($PreseT_DiaL_LinKs)
-		{
-		echo "<a href=\"#\" onclick=\"DtMf_PreSet_a_DiaL('NO','YES');return false;\"><font class=\"body_tiny\">"._QXZ("D1 - DIAL")."</font></a>\n";
-        echo " &nbsp; \n";
-		echo "<a href=\"#\" onclick=\"DtMf_PreSet_b_DiaL('NO','YES');return false;\"><font class=\"body_tiny\">"._QXZ("D2 - DIAL")."</font></a>\n";
-		}
-    else {echo "<br />\n";}
-	?>
-    <br /><br /> &nbsp; <br />
-</font></span>
-
-<span style="position:absolute;left:0px;top:<?php echo $CQheight ?>px;width:<?php echo $MNwidth ?>px;overflow:scroll;z-index:<?php $zi++; echo $zi ?>;background-color:<?php echo $SIDEBAR_COLOR ?>;" id="callsinqueuedisplay"><table cellpadding="0" cellspacing="0" border="0"><tr><td width="5px" rowspan="2">&nbsp;</td><td align="center"><font class="body_text"><?php echo _QXZ("Calls In Queue:"); ?> &nbsp; </font></td></tr><tr><td align="center"><span id="callsinqueuelist">&nbsp;</span></td></tr></table></span>
-
-<font class="body_small"><span style="position:absolute;left:<?php echo $CLwidth ?>px;top:<?php echo $QLheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="callsinqueuelink">
-<?php 
-if ($view_calls_in_queue > 0)
-	{ 
-	if ($view_calls_in_queue_launch > 0) 
-		{echo "<a href=\"#\" onclick=\"show_calls_in_queue('HIDE');\">"._QXZ("Hide Calls In Queue")."</a>\n";}
-	else 
-		{echo "<a href=\"#\" onclick=\"show_calls_in_queue('SHOW');\">"._QXZ("Show Calls In Queue")."</a>\n";}
-	}
-?>
-</span></font>
-
-<span style="position:absolute;left:300px;top:<?php echo $CBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="CallbacksButtons"><font class="body_text">
-<span id="CBstatusSpan"><?php echo _QXZ("X ACTIVE CALLBACKS"); ?></span> <br />
-</font></span>
+<div id="CallbacksButtons" style="position:absolute;left:300px;top:<?php echo $CBheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="text-sm">
+    <span id="CBstatusSpan"><?php echo _QXZ("X ACTIVE CALLBACKS"); ?></span>
+</div>
 
 <span style="position:absolute;left:500px;top:<?php echo $AMheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="OtherTabCommentsSpan">
 <?php 
@@ -23996,137 +23811,144 @@ else
 ?>
 
 
-<span style="position:absolute;left:<?php echo $SCwidth ?>px;top:<?php echo $SLheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="AgentViewLinkSpan"><table cellpadding="0" cellspacing="0" border="0" width="91px"><tr><td align="right"><font class="body_small"><span id="AgentViewLink"><a href="#" onclick="AgentsViewOpen('AgentViewSpan','open');return false;"><?php echo _QXZ("Agents View +"); ?></a></span></font></td></tr></table></span>
+<div style="position:absolute;left:<?php echo $SCwidth ?>px;top:<?php echo $SLheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="AgentViewLinkSpan" class="text-right w-24">
+    <span id="AgentViewLink" class="text-xs"><a href="#" onclick="AgentsViewOpen('AgentViewSpan','open');return false;" class="text-blue-500 hover:underline"><?php echo _QXZ("Agents View +"); ?></a></span>
+</div>
 
 <?php 
-if ($is_webphone=='Y')
-	{ 
-	?>
-
-    <span style="position:absolute;left:<?php echo $SBwidth ?>px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="webphoneLinkSpan"><table cellpadding="0" cellspacing="0" border="0" width="120px"><tr><td align="right"><font class="body_small"><span id="webphoneLink"> &nbsp; <a href="#" onclick="webphoneOpen('webphoneSpan','close');return false;"><?php echo _QXZ("WebPhone View -"); ?></a></span></font></td></tr></table></span>
-
-	<?php 
-	}
+if ($is_webphone=='Y') {
+?>
+<div style="position:absolute;left:<?php echo $SBwidth ?>px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="webphoneLinkSpan" class="text-right w-32">
+    <span id="webphoneLink" class="text-xs">&nbsp; <a href="#" onclick="webphoneOpen('webphoneSpan','close');return false;" class="text-blue-500 hover:underline"><?php echo _QXZ("WebPhone View -"); ?></a></span>
+</div>
+<?php
+}
 ?>
 
-<font class="body_small"><span style="position:absolute;left:165px;top:<?php echo $SDLheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="dialableleadsspan">
+<div style="position:absolute;left:165px;top:<?php echo $SDLheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="dialableleadsspan" class="text-xs">
 <?php 
-if ($agent_display_dialable_leads > 0)
-	{ 
+if ($agent_display_dialable_leads > 0) {
     echo _QXZ("Dialable Leads:")." &nbsp;\n";
-	}
+}
 ?>
-</span></font>
+</div>
 
-<span style="position:absolute;left:<?php echo $MUwidth ?>px;top:<?php echo $SLheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="AgentMuteSpan"></span>
+<div style="position:absolute;left:<?php echo $MUwidth ?>px;top:<?php echo $SLheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="AgentMuteSpan"></div>
 
-<span style="position:absolute;left:<?php echo $AMwidth ?>px;top:<?php echo $SRheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="MainCommit">
-<a href="#" onclick="CustomerData_update('YES')"><font class="body_small"><?php echo _QXZ("commit"); ?></font></a>
-</span>
+<div style="position:absolute;left:<?php echo $AMwidth ?>px;top:<?php echo $SRheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="MainCommit">
+    <a href="#" onclick="CustomerData_update('YES')" class="text-xs text-blue-500 hover:underline"><?php echo _QXZ("commit"); ?></a>
+</div>
 
-<span style="position:absolute;left:<?php if ($script_tab_frame_size == 'LEFT_EDGE') {echo "0";} else {echo "154";} ?>px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="ScriptPanel">
-	<?php
-	if ($webphone_location == 'bar')
+<div id="ScriptPanel" style="position:absolute;left:<?php if ($script_tab_frame_size == 'LEFT_EDGE') {echo "0";} else {echo "154";} ?>px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="bg-<?php echo strtolower(str_replace('#','',$SCRIPT_COLOR)) ?> w-<?php echo $SPwidth ?> h-<?php echo $SSheight ?> overflow-hidden">
+    <?php
+    if ($webphone_location == 'bar')
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$webphone_height."px\" /><br />\n";}
-	if ($state_descriptions_banner > 0)
+    if ($state_descriptions_banner > 0)
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$banner_height."px\" /><br />\n";}
-	?>
-    <table border="0" bgcolor="<?php echo $SCRIPT_COLOR ?>" width="<?php echo $SPwidth ?>px" height="<?php echo $SSheight ?>px"><tr><td align="left" valign="top"><font class="sb_text"><div class="noscroll_script" id="ScriptContents"><?php echo _QXZ("AGENT SCRIPT"); ?></div></font></td></tr></table>
-</span>
+    ?>
+    <div class="p-1">
+        <div class="noscroll_script" id="ScriptContents"><?php echo _QXZ("AGENT SCRIPT"); ?></div>
+    </div>
+</div>
 
 <span style="position:absolute;left:<?php echo $AMwidth ?>px;top:<?php echo $SRheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="ScriptRefresH">
-<a href="#" onclick="RefresHScript('','YES')"><font class="body_small"><?php echo _QXZ("refresh"); ?></font></a>
+<a href="#" onclick="RefresHScript('','YES')" class="text-xs text-blue-500 hover:underline"><?php echo _QXZ("refresh"); ?></a>
 </span>
 
-<span style="position:absolute;left:<?php if ($script_tab_frame_size == 'LEFT_EDGE') {echo "0";} else {echo "154";} ?>px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="Script2Panel">
-	<?php
-	if ($webphone_location == 'bar')
+<div id="Script2Panel" style="position:absolute;left:<?php if ($script_tab_frame_size == 'LEFT_EDGE') {echo "0";} else {echo "154";} ?>px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="bg-<?php echo strtolower(str_replace('#','',$SCRIPT_COLOR)) ?> w-<?php echo $SPwidth ?> h-<?php echo $SSheight ?> overflow-hidden">
+    <?php
+    if ($webphone_location == 'bar')
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$webphone_height."px\" /><br />\n";}
-	if ($state_descriptions_banner > 0)
+    if ($state_descriptions_banner > 0)
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$banner_height."px\" /><br />\n";}
-	?>
-    <table border="0" bgcolor="<?php echo $SCRIPT_COLOR ?>" width="<?php echo $SPwidth ?>px" height="<?php echo $SSheight ?>px"><tr><td align="left" valign="top"><font class="sb_text"><div class="noscroll_script" id="Script2Contents"><?php echo _QXZ("AGENT SCRIPT 2"); ?></div></font></td></tr></table>
-</span>
+    ?>
+    <div class="p-1">
+        <div class="noscroll_script" id="Script2Contents"><?php echo _QXZ("AGENT SCRIPT 2"); ?></div>
+    </div>
+</div>
 
 <span style="position:absolute;left:<?php echo $AMwidth ?>px;top:<?php echo $SRheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="Script2RefresH">
-<a href="#" onclick="RefresHScript2('','YES')"><font class="body_small"><?php echo _QXZ("refresh"); ?></font></a>
+<a href="#" onclick="RefresHScript2('','YES')" class="text-xs text-blue-500 hover:underline"><?php echo _QXZ("refresh"); ?></a>
 </span>
 
-<span style="position:absolute;left:154px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="FormPanel">
-	<?php
-	if ($webphone_location == 'bar')
+<div id="FormPanel" style="position:absolute;left:154px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="bg-<?php echo strtolower(str_replace('#','',$SCRIPT_COLOR)) ?> w-<?php echo $SSwidth ?> h-<?php echo $SSheight ?> overflow-hidden">
+    <?php
+    if ($webphone_location == 'bar')
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$webphone_height."px\" /><br />\n";}
-	if ($state_descriptions_banner > 0)
+    if ($state_descriptions_banner > 0)
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$banner_height."px\" /><br />\n";}
-	?>
-    <table border="0" bgcolor="<?php echo $SCRIPT_COLOR ?>" width="<?php echo $SSwidth ?>px" height="<?php echo $SSheight ?>px"><tr><td align="left" valign="top"><font class="sb_text"><div class="noscroll_form" id="FormContents"><iframe src="./vdc_form_display.php?lead_id=&list_id=&stage=WELCOME" style="background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="vcFormIFrame" name="vcFormIFrame" width="<?php echo $SDwidth ?>px" height="<?php echo $SSheight ?>px" STYLE="z-index:<?php $zi++; echo $zi ?>"> </iframe></div></font></td></tr></table>
-</span>
+    ?>
+    <div class="p-1">
+        <div class="noscroll_form" id="FormContents"><iframe src="./vdc_form_display.php?lead_id=&list_id=&stage=WELCOME" class="bg-transparent w-full h-full" scrolling="auto" frameborder="0" allowtransparency="true" id="vcFormIFrame" name="vcFormIFrame" STYLE="z-index:<?php $zi++; echo $zi ?>"> </iframe></div>
+    </div>
+</div>
 
-<span style="position:absolute;left:154px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="EmailPanel">
-	<?php
-	if ($webphone_location == 'bar')
+<div id="EmailPanel" style="position:absolute;left:154px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="bg-<?php echo strtolower(str_replace('#','',$SCRIPT_COLOR)) ?> w-<?php echo $SSwidth ?> h-<?php echo $SSheight ?> overflow-hidden">
+    <?php
+    if ($webphone_location == 'bar')
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$webphone_height."px\" /><br />\n";}
-	if ($state_descriptions_banner > 0)
+    if ($state_descriptions_banner > 0)
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$banner_height."px\" /><br />\n";}
-	?>
-    <table border="0" bgcolor="<?php echo $SCRIPT_COLOR ?>" width="<?php echo $SSwidth ?>px" height="<?php echo $SSheight ?>px"><tr><td align="left" valign="top"><font class="sb_text"><div class="noscroll_form" id="EmailContents"><iframe src="./vdc_email_display.php?lead_id=&list_id=&stage=WELCOME" style="background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="vcEmailIFrame" name="vcEmailIFrame" width="<?php echo $SDwidth ?>px" height="<?php echo $SSheight ?>px" STYLE="z-index:<?php $zi++; echo $zi ?>"> </iframe></div></font></td></tr></table>
-</span>
+    ?>
+    <div class="p-1">
+        <div class="noscroll_form" id="EmailContents"><iframe src="./vdc_email_display.php?lead_id=&list_id=&stage=WELCOME" class="bg-transparent w-full h-full" scrolling="auto" frameborder="0" allowtransparency="true" id="vcEmailIFrame" name="vcEmailIFrame" STYLE="z-index:<?php $zi++; echo $zi ?>"> </iframe></div>
+    </div>
+</div>
 
-<span style="position:absolute;left:154px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="CustomerChatPanel">
-	<?php
-	if ($webphone_location == 'bar')
+<div id="CustomerChatPanel" style="position:absolute;left:154px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="bg-<?php echo strtolower(str_replace('#','',$SCRIPT_COLOR)) ?> w-<?php echo $SSwidth ?> h-<?php echo $SSheight ?> overflow-hidden">
+    <?php
+    if ($webphone_location == 'bar')
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$webphone_height."px\" /><br />\n";}
-	if ($state_descriptions_banner > 0)
+    if ($state_descriptions_banner > 0)
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$banner_height."px\" /><br />\n";}
-	?>
-    <table border="0" bgcolor="<?php echo $SCRIPT_COLOR ?>" width="<?php echo $SSwidth ?>px" height="<?php echo $SSheight ?>px"><tr><td align="left" valign="top"><font class="sb_text"><div class="noscroll_form" id="ChatContents"><iframe src="./vdc_chat_display.php?lead_id=&list_id=&dial_method=<?php echo $dial_method; ?>&stage=WELCOME&server_ip=<?php echo $server_ip; ?>&user=<?php echo $VD_login.$VARchatgroupsURL ?>" style="background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="CustomerChatIFrame" name="CustomerChatIFrame" width="<?php echo $SDwidth ?>px" height="<?php echo $SSheight ?>px" STYLE="z-index:<?php $zi++; echo $zi ?>"> </iframe></div></font></td></tr></table>
-</span>
+    ?>
+    <div class="p-1">
+        <div class="noscroll_form" id="ChatContents"><iframe src="./vdc_chat_display.php?lead_id=&list_id=&dial_method=<?php echo $dial_method; ?>&stage=WELCOME&server_ip=<?php echo $server_ip; ?>&user=<?php echo $VD_login.$VARchatgroupsURL ?>" class="bg-transparent w-full h-full" scrolling="auto" frameborder="0" allowtransparency="true" id="CustomerChatIFrame" name="CustomerChatIFrame" STYLE="z-index:<?php $zi++; echo $zi ?>"> </iframe></div>
+    </div>
+</div>
 
-<span style="position:absolute;left:154px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="InternalChatPanel">
-	<?php
-	if ($webphone_location == 'bar')
+<div id="InternalChatPanel" style="position:absolute;left:154px;top:<?php echo $SFheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="bg-<?php echo strtolower(str_replace('#','',$SCRIPT_COLOR)) ?> w-<?php echo $SSwidth ?> h-<?php echo $SSheight ?> overflow-hidden">
+    <?php
+    if ($webphone_location == 'bar')
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$webphone_height."px\" /><br />\n";}
-	if ($state_descriptions_banner > 0)
+    if ($state_descriptions_banner > 0)
         {echo "<img src=\"./images/"._QXZ("pixel.gif")."\" width=\"1px\" height=\"".$banner_height."px\" /><br />\n";}
-	?>
-    <table border="0" bgcolor="<?php echo $SCRIPT_COLOR ?>" width="<?php echo $SSwidth ?>px" height="<?php echo $SSheight ?>px"><tr><td align="left" valign="top"><font class="sb_text"><div class="noscroll_form" id="InternalChatContents"><iframe src="./agc_agent_manager_chat_interface.php?action=BLANK" style="background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="InternalChatIFrame" name="InternalChatIFrame" width="<?php echo $SDwidth ?>px" height="<?php echo $SSheight ?>px" STYLE="z-index:<?php $zi++; echo $zi ?>"> </iframe></div></font></td></tr></table>
-</span>
+    ?>
+    <div class="p-1">
+        <div class="noscroll_form" id="InternalChatContents"><iframe src="./agc_agent_manager_chat_interface.php?action=BLANK" class="bg-transparent w-full h-full" scrolling="auto" frameborder="0" allowtransparency="true" id="InternalChatIFrame" name="InternalChatIFrame" STYLE="z-index:<?php $zi++; echo $zi ?>"> </iframe></div>
+    </div>
+</div>
 
 
 <span style="position:absolute;left:<?php $tempAMwidth = ($AMwidth - 15); echo $tempAMwidth ?>px;top:<?php echo $SRheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="FormRefresH">
-<a href="#" onclick="FormContentsLoad('YES')"><font class="body_small"><?php echo _QXZ("reset form"); ?></font></a>
+<a href="#" onclick="FormContentsLoad('YES')" class="text-xs text-blue-500 hover:underline"><?php echo _QXZ("reset form"); ?></a>
 </span>
 
 <span style="position:absolute;left:<?php echo $AMwidth ?>px;top:<?php echo $SRheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="EmailRefresH">
-<a href="#" onclick="EmailContentsLoad('YES')"><font class="body_small"><?php echo _QXZ("refresh"); ?></font></a>
+<a href="#" onclick="EmailContentsLoad('YES')" class="text-xs text-blue-500 hover:underline"><?php echo _QXZ("refresh"); ?></a>
 </span>
 
-<span style="position:absolute;left:5px;top:<?php echo $HTheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="HotKeyActionBox">
-    <table border="0" bgcolor="#FFDD99" width="<?php echo $HCwidth ?>px" height="70px">
-    <tr bgcolor="#FFEEBB"><td height="70px"><font class="sh_text"> <?php echo _QXZ("Lead Dispositioned As:"); ?> </font><br /><br /><center>
-    <font class="sd_text"><span id="HotKeyDispo"> - </span></font>
-	<span id="HKWrapupTimer"></span><span id="HKWrapupBypass"></span>
-	<span id="HKWrapupMessage"></span>
-	</center>
-</td>
-    </tr></table>
-</span>
+<div id="HotKeyActionBox" style="position:absolute;left:5px;top:<?php echo $HTheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="bg-yellow-200 w-<?php echo $HCwidth ?> h-16 p-2 rounded-md shadow-lg">
+    <div class="text-sm font-semibold"><?php echo _QXZ("Lead Dispositioned As:"); ?></div>
+    <div class="text-center mt-2">
+        <span id="HotKeyDispo" class="text-lg font-bold">-</span>
+        <span id="HKWrapupTimer" class="ml-2 text-xs"></span>
+        <span id="HKWrapupBypass" class="ml-2 text-xs"></span>
+        <div id="HKWrapupMessage" class="mt-1 text-xs"></div>
+    </div>
+</div>
 
-<span style="position:absolute;left:5px;top:<?php echo $HTheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="HotKeyEntriesBox">
-    <table border="0" bgcolor="#FFDD99" width="<?php echo $HCwidth ?>px" height="70px">
-    <tr bgcolor="#FFEEBB"><td width="200px"><font class="sh_text"> <?php echo _QXZ("Disposition Hot Keys:"); ?> </font></td><td colspan="2">
-	<font class="body_small"><?php echo _QXZ("When active, simply press the keyboard key for the desired disposition for this call. The call will then be hungup and dispositioned automatically:"); ?></font></td></tr><tr>
-    <td width="200px"><font class="sk_text">
-	<span id="HotKeyBoxA"><?php echo $HKboxA ?></span>
-    </font></td>
-    <td width="200px"><font class="sk_text">
-	<span id="HotKeyBoxB"><?php echo $HKboxB ?></span>
-    </font></td>
-    <td><font class="sk_text">
-	<span id="HotKeyBoxC"><?php echo $HKboxC ?></span>
-    </font></td>
-    </tr></table>
-</span>
+<div id="HotKeyEntriesBox" style="position:absolute;left:5px;top:<?php echo $HTheight ?>px;z-index:<?php $zi++; echo $zi ?>;" class="bg-yellow-200 w-<?php echo $HCwidth ?> p-2 rounded-md shadow-lg">
+    <div class="flex justify-between items-center mb-1">
+        <div class="text-sm font-semibold"><?php echo _QXZ("Disposition Hot Keys:"); ?></div>
+        <div class="text-xs"><?php echo _QXZ("When active, simply press the keyboard key for the desired disposition for this call. The call will then be hungup and dispositioned automatically:"); ?></div>
+    </div>
+    <div class="grid grid-cols-3 gap-2 text-xs">
+        <div id="HotKeyBoxA"><?php echo $HKboxA ?></div>
+        <div id="HotKeyBoxB"><?php echo $HKboxB ?></div>
+        <div id="HotKeyBoxC"><?php echo $HKboxC ?></div>
+    </div>
+</div>
 
 <?php if ( ($HK_statuses_camp > 0) && ($user_level>=$HKuser_level) && ($VU_hotkeys_active > 0) ) { ?>
 <span style="position:absolute;left:<?php echo $HKwidth ?>px;top:<?php echo $HKheight ?>px;z-index:<?php $zi++; echo $zi ?>;" id="hotkeysdisplay"><a href="#" onMouseOver="HotKeys('ON')"><img src="./images/<?php echo _QXZ("vdc_XB_hotkeysactive_OFF.gif"); ?>" border="0" alt="HOT KEYS INACTIVE" /></a></span>
@@ -24277,59 +24099,66 @@ if ($agent_display_dialable_leads > 0)
     </tr></table>
 </span>
 
-<span style="position:absolute;left:0px;top:12px;z-index:<?php $zi++; echo $zi ?>;" id="NoneInSessionBox">
-    <table border="0" bgcolor="#CCFFFF" width="<?php echo $CAwidth ?>px" height="<?php echo $WRheight ?>px"><tr><td align="center"> <font class="sd_text"><?php echo _QXZ("No one is in your session:"); ?> <span id="NoneInSessionID"></span><br />
-	<a href="#" onclick="NoneInSessionOK();return false;"><?php echo _QXZ("Go Back"); ?></a>
-    <br /><br />
-	<span id="NoneInSessionLink"><a href="#" onclick="NoneInSessionCalL();return false;"><?php echo _QXZ("Call Agent Again"); ?></a></font></span>
-    </td></tr></table>
-</span>
+<div id="NoneInSessionBox" style="position:absolute;left:0px;top:12px;z-index:<?php $zi++; echo $zi ?>;" class="w-full p-4 bg-blue-100 border-t-4 border-blue-500 rounded-b text-blue-900 shadow-lg">
+    <div class="flex">
+        <div class="py-1"><svg class="fill-current h-6 w-6 text-blue-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM9 5v6h2V5H9zm0 8h2v-2H9v2z"/></svg></div>
+        <div>
+            <p class="font-bold"><?php echo _QXZ("No one is in your session:"); ?> <span id="NoneInSessionID"></span></p>
+            <p class="text-sm mt-2"><a href="#" onclick="NoneInSessionOK();return false;" class="text-blue-500 hover:underline"><?php echo _QXZ("Go Back"); ?></a></p>
+            <p class="text-sm mt-2"><span id="NoneInSessionLink"><a href="#" onclick="NoneInSessionCalL();return false;" class="text-blue-500 hover:underline"><?php echo _QXZ("Call Agent Again"); ?></a></span></p>
+        </div>
+    </div>
+</div>
 
-<span style="position:absolute;left:0px;top:30px;z-index:<?php $zi++; echo $zi ?>;" id="CustomerGoneBox">
-    <table border="0" bgcolor="#CCFFFF" width="<?php echo $CAwidth ?>px" height="<?php echo $WRheight ?>px"><tr><td align="center"> <font class="sd_text"><?php echo _QXZ("Customer has hung up:"); ?> <span id="CustomerGoneChanneL"></span><br />
-	<a href="#" onclick="CustomerGoneOK();return false;"><?php echo _QXZ("Go Back"); ?></a>
-    <br /><br />
-	<a href="#" onclick="CustomerGoneHangup();return false;"><?php echo _QXZ("Finish and Disposition Call"); ?></a></font>
-    </td></tr></table>
-</span>
+<div id="CustomerGoneBox" style="position:absolute;left:0px;top:30px;z-index:<?php $zi++; echo $zi ?>;" class="w-full p-4 bg-yellow-100 border-t-4 border-yellow-500 rounded-b text-yellow-900 shadow-lg">
+    <div class="flex">
+        <div class="py-1"><svg class="fill-current h-6 w-6 text-yellow-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM9 5v6h2V5H9zm0 8h2v-2H9v2z"/></svg></div>
+        <div>
+            <p class="font-bold"><?php echo _QXZ("Customer has hung up:"); ?> <span id="CustomerGoneChanneL"></span></p>
+            <p class="text-sm mt-2"><a href="#" onclick="CustomerGoneOK();return false;" class="text-yellow-500 hover:underline"><?php echo _QXZ("Go Back"); ?></a></p>
+            <p class="text-sm mt-2"><a href="#" onclick="CustomerGoneHangup();return false;" class="text-yellow-500 hover:underline"><?php echo _QXZ("Finish and Disposition Call"); ?></a></p>
+        </div>
+    </div>
+</div>
 
-<span style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="WrapupBox">
-    <table border="0" bgcolor="#CCFFCC" width="<?php echo $CAwidth ?>px" height="<?php echo $WRheight ?>px"><tr><td align="center"> <font class="sd_text"><?php echo _QXZ("Call Wrapup:"); ?> <span id="WrapupTimer"></span> <?php echo _QXZ("seconds remaining in wrapup"); ?></font><br /><br />
-	<span id="WrapupMessage"><?php echo $wrapup_message ?></span>
-    <br /><br />
-	<span id="WrapupBypass"><font class="sh_text"><a href="#" onclick="WrapupFinish();return false;"><?php echo _QXZ("Finish Wrapup and Move On"); ?></a></font></span>
-    </td></tr></table>
-</span>
+<div id="WrapupBox" style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" class="w-full h-full flex items-center justify-center bg-green-100">
+    <div class="text-center p-8 bg-white rounded-lg shadow-xl">
+        <p class="text-xl font-bold text-green-700"><?php echo _QXZ("Call Wrapup:"); ?> <span id="WrapupTimer"></span> <?php echo _QXZ("seconds remaining in wrapup"); ?></p>
+        <div id="WrapupMessage" class="mt-4 text-gray-600"><?php echo $wrapup_message ?></div>
+        <div id="WrapupBypass" class="mt-6"><a href="#" onclick="WrapupFinish();return false;" class="px-4 py-2 font-medium text-white bg-green-600 rounded-md hover:bg-green-700"><?php echo _QXZ("Finish Wrapup and Move On"); ?></a></div>
+    </div>
+</div>
 
-<span style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="FSCREENWrapupBox"><table border="0" bgcolor="#FFFFFF" width="<?php echo $CAwidth ?>px" height="<?php echo $WRheight ?>px" cellpadding="0" cellspacing="0"><tr><td><span id="FSCREENWrapupMessage"><?php echo $wrapup_message ?></span></td></tr></table></span>
+<div id="FSCREENWrapupBox" style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" class="w-full h-full bg-white"><div id="FSCREENWrapupMessage" class="p-4"><?php echo $wrapup_message ?></div></div>
 
-<span style="position:absolute;left:200px;top:150px;z-index:<?php $zi++; echo $zi ?>;" id="TimerSpan">
-    <table border="0" bgcolor="#CCFFCC" width="400px" height="200px"><tr><td align="center">
-    <br /><font class="sh_text"><span id="TimerContentSpan"></span></font><br /><br />
-	<font class="sh_text"><a href="#" onclick="hideDiv('TimerSpan');return false;"><?php echo _QXZ("Close Message"); ?></a></font>
-    </td></tr></table>
-</span>
+<div id="TimerSpan" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:<?php $zi++; echo $zi ?>;" class="w-96 p-6 bg-green-100 border border-green-400 rounded-lg shadow-lg text-center">
+    <div id="TimerContentSpan" class="font-bold text-green-800"></div>
+    <a href="#" onclick="hideDiv('TimerSpan');return false;" class="inline-block mt-4 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"><?php echo _QXZ("Close Message"); ?></a>
+</div>
 
-<span style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="AgenTDisablEBoX">
-    <table border="0" bgcolor="#FFFFFF" width="<?php echo $CAwidth ?>px" height="<?php echo $WRheight ?>px"><tr><td align="center"><font class="sd_text"><?php echo _QXZ("Your session has been disabled"); ?><br /><a href="#" onclick="LogouT('DISABLED','','');return false;"><?php echo _QXZ("CLICK HERE TO RESET YOUR SESSION"); ?></a></font><br /><br /><!--<a href="#" onclick="hideDiv('AgenTDisablEBoX');return false;">Go Back</a>-->
-    </td></tr></table>
-</span>
+<div id="AgenTDisablEBoX" style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" class="w-full h-full flex items-center justify-center bg-white">
+    <div class="text-center">
+        <p class="text-xl font-bold text-red-700"><?php echo _QXZ("Your session has been disabled"); ?></p>
+        <a href="#" onclick="LogouT('DISABLED','','');return false;" class="inline-block mt-4 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-700"><?php echo _QXZ("CLICK HERE TO RESET YOUR SESSION"); ?></a>
+    </div>
+</div>
 
-<span style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="SysteMDisablEBoX">
-    <table border="0" bgcolor="#FFFFFF" width="<?php echo $CAwidth ?>px" height="<?php echo $WRheight ?>px"><tr><td align="center"><font class="sh_text"><?php echo _QXZ("There is a time synchronization problem with your system, please tell your system administrator"); ?><br /><br /><br /><a href="#" onclick="hideDiv('SysteMDisablEBoX');return false;"><?php echo _QXZ("Go Back"); ?></a></font>
-    </td></tr></table>
-</span>
+<div id="SysteMDisablEBoX" style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" class="w-full h-full flex items-center justify-center bg-white">
+    <div class="text-center">
+        <p class="text-xl font-bold text-red-700"><?php echo _QXZ("There is a time synchronization problem with your system, please tell your system administrator"); ?></p>
+        <a href="#" onclick="hideDiv('SysteMDisablEBoX');return false;" class="inline-block mt-6 px-4 py-2 font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300"><?php echo _QXZ("Go Back"); ?></a>
+    </div>
+</div>
 
-<span style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" id="LogouTBox">
-    <table border="0" bgcolor="#FFFFFF" width="<?php echo $JS_browser_width ?>px" height="<?php echo $JS_browser_height ?>px"><tr><td align="center"><br /><span id="LogouTProcess">
-	<br />
-	<br />
-	<font class="loading_text"><?php echo _QXZ("LOGOUT PROCESSING..."); ?></font>
-	<br />
-	<br />
-	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="./images/<?php echo _QXZ("agent_loading_animation.gif"); ?>" height="206px" width="206px" alt="<?php echo _QXZ("LOGOUT PROCESSING..."); ?>" />
-	</span><br /><br /><span id="LogouTBoxLink"><font class="loading_text"><?php echo _QXZ("LOGOUT"); ?></font></span></td></tr></table>
-</span>
+<div id="LogouTBox" style="position:absolute;left:0px;top:0px;z-index:<?php $zi++; echo $zi ?>;" class="w-full h-full flex items-center justify-center bg-white">
+    <div class="text-center">
+        <div id="LogouTProcess">
+            <p class="text-2xl font-bold text-gray-700"><?php echo _QXZ("LOGOUT PROCESSING..."); ?></p>
+            <img src="./images/<?php echo _QXZ("agent_loading_animation.gif"); ?>" height="206" width="206" alt="<?php echo _QXZ("LOGOUT PROCESSING..."); ?>" class="mx-auto mt-4" />
+        </div>
+        <div id="LogouTBoxLink" class="mt-6 text-lg font-bold text-gray-700"><?php echo _QXZ("LOGOUT"); ?></div>
+    </div>
+</div>
 
 <span style="position:absolute;left:0px;top:70px;z-index:<?php $zi++; echo $zi ?>;" id="DispoButtonHideA">
     <table border="0" bgcolor="#CCFFCC" width="165px" height="22px"><tr><td align="center" valign="top"></td></tr></table>
